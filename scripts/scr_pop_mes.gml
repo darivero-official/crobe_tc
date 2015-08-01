@@ -22,4 +22,6 @@ if !global.v_msg_type = 0 { //Check if not notification message
     global.v_msg_btn_2txt = string(argument5); //Set message button 2 text
 }
 global.v_msg_important = argument6; //Set message important
-instance_create(display_get_gui_width()/2,display_get_gui_height()/2,objPop_mes); //Display message
+//if !instance_exists(objPop_mes) { //Check if objPop_mes is not exists
+    instance_create(display_get_gui_width()/2,display_get_gui_height()/2,objPop_mes); //Display message
+//}

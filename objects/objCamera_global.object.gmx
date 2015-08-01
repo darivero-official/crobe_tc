@@ -150,7 +150,7 @@ font_delete(global.v_msg_fnt);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_text(100,100,string(fps));
+            <string>//draw_text(100,100,string(fps));
 </string>
           </argument>
         </arguments>
