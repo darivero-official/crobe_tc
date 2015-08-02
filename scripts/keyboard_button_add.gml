@@ -5,17 +5,23 @@
 var ret;
 ret = -1;
 
-if scr_mouse_rectangle(argument0, argument1, argument0+argument2, argument1+argument3) {
-    if mouse_check_button( mb_left) {
+if scr_mouse_device_rectangle(argument0, argument1, argument0+argument2, argument1+argument3,0) {
+    if device_mouse_check_button(0,mb_left) {
         ret = 0;
     }
-    if mouse_check_button_pressed( mb_left) {
+    if device_mouse_check_button_pressed(0,mb_left) {
         ret = 1;
         if (argument7 == true) {
             keyboard_string += argument4;
+            if global.snd_fx = true {
+                ex_audio_play("sndTick_tiny",0); //Play audio sndTick_tiny
+            }
+            if global.imm_haptics = true { //Check if immersion haptics is enabled
+                immersion_play_effect(2); //Immersion play SHARP CLICK 33
+            }
         }
     }
-    if mouse_check_button_released( mb_left) {
+    if device_mouse_check_button_released(0,mb_left) {
         ret = 2;
     }
 }

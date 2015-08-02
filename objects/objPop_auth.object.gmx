@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-1</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -98,7 +98,7 @@ if device_mouse_x_to_gui(0) &gt;= x-v_msg_width-v_m_p &amp;&amp; device_mouse_x_
             v_msg_input_sel = 1; //Set input selected to 1
         }
         if device_mouse_check_button_released(0,mb_left) &amp;&amp; v_focus = 1 { //Check if left click released on device 0
-            keyboard_open(0,objPop_auth.v_msg_input_1txt); //Open keyboard
+            keyboard_open(0,objPop_auth.v_msg_input_1txt,false); //Open keyboard
         }
     }
     if device_mouse_y_to_gui(0) &gt; y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))-v_m_p &amp;&amp; device_mouse_y_to_gui(0) &lt; y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+v_msg_input_h+v_m_p { //Check if the mouse is located in a particular area
@@ -106,7 +106,7 @@ if device_mouse_x_to_gui(0) &gt;= x-v_msg_width-v_m_p &amp;&amp; device_mouse_x_
             v_msg_input_sel = 2; //Set input selected to 2
         }
         if device_mouse_check_button_released(0,mb_left) &amp;&amp; v_focus = 1 { //Check if left click released on device 0
-            keyboard_open(0,objPop_auth.v_msg_input_2txt); //Open keyboard
+            keyboard_open(0,objPop_auth.v_msg_input_2txt,false); //Open keyboard
         }
     }
     if v_msg_type = 1 {
@@ -115,7 +115,7 @@ if device_mouse_x_to_gui(0) &gt;= x-v_msg_width-v_m_p &amp;&amp; device_mouse_x_
                 v_msg_input_sel = 3; //Set input selected to 3
             }
             if device_mouse_check_button_released(0,mb_left) &amp;&amp; v_focus = 1 { //Check if left click released on device 0
-                keyboard_open(0,objPop_auth.v_msg_input_3txt); //Open keyboard
+                keyboard_open(0,objPop_auth.v_msg_input_3txt,false); //Open keyboard
             }
         }
         if device_mouse_y_to_gui(0) &gt; y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)-v_m_p &amp;&amp; device_mouse_y_to_gui(0) &lt; y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)+v_msg_input_h+v_m_p { //Check if the mouse is located in a particular area
@@ -123,7 +123,7 @@ if device_mouse_x_to_gui(0) &gt;= x-v_msg_width-v_m_p &amp;&amp; device_mouse_x_
                 v_msg_input_sel = 4; //Set input selected to 4
             }
             if device_mouse_check_button_released(0,mb_left) &amp;&amp; v_focus = 1 { //Check if left click released on device 0
-                keyboard_open(0,objPop_auth.v_msg_input_4txt); //Open keyboard
+                keyboard_open(0,objPop_auth.v_msg_input_4txt,false); //Open keyboard
             }
         }
     }
@@ -212,46 +212,48 @@ else {
             v_col_black2 -= 10; //Decrease black 2 colour by 10
         }
     }
-    //Input 3
-    if v_msg_input_sel = 3 { //Check if input selected is 3
-        if v_msg_input_3txt = "Password" { //Check input 3 text is Password
-            if v_msg_input_3txt_alpha &gt; 0.2 { //Check if input 3 text alpha is bigger than 0.2
-                v_msg_input_3txt_alpha -= 0.1; //Decrease input 3 text alpha by 0.1
+    if v_msg_type = 1 { //Check if message type is register
+        //Input 3
+        if v_msg_input_sel = 3 { //Check if input selected is 3
+            if v_msg_input_3txt = "Password" { //Check input 3 text is Password
+                if v_msg_input_3txt_alpha &gt; 0.2 { //Check if input 3 text alpha is bigger than 0.2
+                    v_msg_input_3txt_alpha -= 0.1; //Decrease input 3 text alpha by 0.1
+                }
+            }
+            else { //Check if message input 3 text is not Password
+                if v_msg_input_3txt_alpha &lt; 1 { //Check if input 3 text alpha is smaller than 1
+                    v_msg_input_3txt_alpha += 0.1; //Increase input 3 text alpha by 0.1
+                }
+            }
+            if v_col_black3 &lt; 30 { //Check if black 3 colour is smaller than 30
+                v_col_black3 += 10; //Increase black 3 colour by 10
             }
         }
-        else { //Check if message input 3 text is not Password
-            if v_msg_input_3txt_alpha &lt; 1 { //Check if input 3 text alpha is smaller than 1
-                v_msg_input_3txt_alpha += 0.1; //Increase input 3 text alpha by 0.1
+        else {
+            if v_col_black3 &gt; 0 { //Check if black 3 colour is bigger than 0
+                v_col_black3 -= 10; //Decrease black 3 colour by 10
             }
         }
-        if v_col_black3 &lt; 30 { //Check if black 3 colour is smaller than 30
-            v_col_black3 += 10; //Increase black 3 colour by 10
-        }
-    }
-    else {
-        if v_col_black3 &gt; 0 { //Check if black 3 colour is bigger than 0
-            v_col_black3 -= 10; //Decrease black 3 colour by 10
-        }
-    }
-    //Input 4
-    if v_msg_input_sel = 4 { //Check if input selected is 4
-        if v_msg_input_4txt = "Repeat password" { //Check input 4 text is Repeat password
-            if v_msg_input_4txt_alpha &gt; 0.2 { //Check if input 4 text alpha is bigger than 0.2
-                v_msg_input_4txt_alpha -= 0.1; //Decrease input 4 text alpha by 0.1
+        //Input 4
+        if v_msg_input_sel = 4 { //Check if input selected is 4
+            if v_msg_input_4txt = "Repeat password" { //Check input 4 text is Repeat password
+                if v_msg_input_4txt_alpha &gt; 0.2 { //Check if input 4 text alpha is bigger than 0.2
+                    v_msg_input_4txt_alpha -= 0.1; //Decrease input 4 text alpha by 0.1
+                }
+            }
+            else { //Check if message input 4 text is not Repeat password
+                if v_msg_input_4txt_alpha &lt; 1 { //Check if input 4 text alpha is smaller than 1
+                    v_msg_input_4txt_alpha += 0.1; //Increase input 4 text alpha by 0.1
+                }
+            }
+            if v_col_black4 &lt; 30 { //Check if black 4 colour is smaller than 30
+                v_col_black4 += 10; //Increase black 4 colour by 10
             }
         }
-        else { //Check if message input 4 text is not Repeat password
-            if v_msg_input_4txt_alpha &lt; 1 { //Check if input 4 text alpha is smaller than 1
-                v_msg_input_4txt_alpha += 0.1; //Increase input 4 text alpha by 0.1
+        else {
+            if v_col_black4 &gt; 0 { //Check if black 4 colour is bigger than 0
+                v_col_black4 -= 10; //Decrease black 4 colour by 10
             }
-        }
-        if v_col_black4 &lt; 30 { //Check if black 4 colour is smaller than 30
-            v_col_black4 += 10; //Increase black 4 colour by 10
-        }
-    }
-    else {
-        if v_col_black4 &gt; 0 { //Check if black 4 colour is bigger than 0
-            v_col_black4 -= 10; //Decrease black 4 colour by 10
         }
     }
     
@@ -331,7 +333,7 @@ else {
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="64">
+    <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -366,24 +368,53 @@ else {
 draw_rectangle_colour(x-v_msg_width-v_msg_padding,y+v_msg_height+v_msg_padding,x,y+v_msg_height+v_msg_padding+v_m_p,make_colour_rgb(0,0,0),make_colour_rgb(0,190,0),make_colour_rgb(0,190,0),make_colour_rgb(0,0,0),0); //Draw separator
 draw_rectangle_colour(x,y+v_msg_height+v_msg_padding,x+v_msg_width+v_msg_padding,y+v_msg_height+v_msg_padding+v_m_p,make_colour_rgb(0,190,0),make_colour_rgb(0,0,0),make_colour_rgb(0,0,0),make_colour_rgb(0,190,0),0); //Draw separator
 //Inputs
+var temp_input_width;
+temp_input_width = (v_msg_width*2)-v_msg_padding;
 draw_set_halign(fa_left); //Set horizontal align text to left
 //Input 1
 draw_rectangle(x-v_msg_width-v_m_p,y-v_msg_height-v_m_p,x+v_msg_width+v_m_p,y-v_msg_height+v_msg_input_h+v_m_p,1); //Draw input border
 draw_rectangle_colour(x-v_msg_width,y-v_msg_height,x+v_msg_width,y-v_msg_height+v_msg_input_h,make_colour_rgb(v_col_black1,v_col_black1,v_col_black1),make_colour_rgb(v_col_black1,v_col_black1,v_col_black1),make_colour_rgb(v_col_black1+20,v_col_black1+20,v_col_black1+20),make_colour_rgb(v_col_black1+10,v_col_black1+10,v_col_black1+10),0); //Draw input 1
-draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h/2),v_msg_input_1txt,c_white,c_white,c_white,c_white,v_msg_input_1txt_alpha); //Draw input text
-//Input 2
-draw_rectangle(x-v_msg_width-v_m_p,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))-v_m_p,x+v_msg_width+v_m_p,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+v_msg_input_h+v_m_p,1); //Draw input border
-draw_rectangle_colour(x-v_msg_width,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2)),x+v_msg_width,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+v_msg_input_h,make_colour_rgb(v_col_black2,v_col_black2,v_col_black2),make_colour_rgb(v_col_black2,v_col_black2,v_col_black2),make_colour_rgb(v_col_black2+20,v_col_black2+20,v_col_black2+20),make_colour_rgb(v_col_black2+10,v_col_black2+10,v_col_black2+10),0); //Draw input 2
-draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+(v_msg_input_h/2),v_msg_input_2txt,c_white,c_white,c_white,c_white,v_msg_input_2txt_alpha); //Draw input text
+draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h/2),scr_string_fit_to_width(v_msg_input_1txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_1txt_alpha); //Draw input text
 if v_msg_type = 1 { //Check if message type is 1 (register)
+    //Input 2
+    draw_rectangle(x-v_msg_width-v_m_p,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))-v_m_p,x+v_msg_width+v_m_p,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+v_msg_input_h+v_m_p,1); //Draw input border
+    draw_rectangle_colour(x-v_msg_width,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2)),x+v_msg_width,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+v_msg_input_h,make_colour_rgb(v_col_black2,v_col_black2,v_col_black2),make_colour_rgb(v_col_black2,v_col_black2,v_col_black2),make_colour_rgb(v_col_black2+20,v_col_black2+20,v_col_black2+20),make_colour_rgb(v_col_black2+10,v_col_black2+10,v_col_black2+10),0); //Draw input 2
+    draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+(v_msg_input_h/2),scr_string_fit_to_width(v_msg_input_2txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_2txt_alpha); //Draw input text
     //Input 3
     draw_rectangle(x-v_msg_width-v_m_p,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2)-v_m_p,x+v_msg_width+v_m_p,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2)+v_msg_input_h+v_m_p,1); //Draw input border
     draw_rectangle_colour(x-v_msg_width,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2),x+v_msg_width,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2)+v_msg_input_h,make_colour_rgb(v_col_black3,v_col_black3,v_col_black3),make_colour_rgb(v_col_black3,v_col_black3,v_col_black3),make_colour_rgb(v_col_black3+20,v_col_black3+20,v_col_black3+20),make_colour_rgb(v_col_black3+10,v_col_black3+10,v_col_black3+10),0); //Draw input 3
-    draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2)+(v_msg_input_h/2),v_msg_input_3txt,c_white,c_white,c_white,c_white,v_msg_input_3txt_alpha); //Draw input text
+    if v_msg_input_3txt = "Password" { //Check if input 3 text is not Password
+        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2)+(v_msg_input_h/2),scr_string_fit_to_width(v_msg_input_3txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_3txt_alpha); //Draw input text
+    }
+    else {
+        draw_set_font(global.v_pwd_fnt); //Set password font
+        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2)+(v_msg_input_h/2),scr_string_fit_to_width(scr_string_mask("•",v_msg_input_3txt),temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_3txt_alpha); //Draw input text
+        draw_set_font(v_msg_fnt); //Set message font
+    }
     //Input 4
     draw_rectangle(x-v_msg_width-v_m_p,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)-v_m_p,x+v_msg_width+v_m_p,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)+v_msg_input_h+v_m_p,1); //Draw input border
     draw_rectangle_colour(x-v_msg_width,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3),x+v_msg_width,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)+v_msg_input_h,make_colour_rgb(v_col_black4,v_col_black4,v_col_black4),make_colour_rgb(v_col_black4,v_col_black4,v_col_black4),make_colour_rgb(v_col_black4+20,v_col_black4+20,v_col_black4+20),make_colour_rgb(v_col_black4+20,v_col_black4+20,v_col_black4+20),0); //Draw input 4
-    draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)+(v_msg_input_h/2),v_msg_input_4txt,c_white,c_white,c_white,c_white,v_msg_input_4txt_alpha); //Draw input text
+    if v_msg_input_4txt = "Repeat password" { //Check if input 4 text is not Repeat password
+        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)+(v_msg_input_h/2),scr_string_fit_to_width(v_msg_input_4txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_4txt_alpha); //Draw input text
+    }
+    else {
+        draw_set_font(global.v_pwd_fnt); //Set password font
+        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)+(v_msg_input_h/2),scr_string_fit_to_width(scr_string_mask("•",v_msg_input_4txt),temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_4txt_alpha); //Draw input text
+        draw_set_font(v_msg_fnt); //Set message font
+    }
+}
+else {
+    //Input 2
+    draw_rectangle(x-v_msg_width-v_m_p,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))-v_m_p,x+v_msg_width+v_m_p,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+v_msg_input_h+v_m_p,1); //Draw input border
+    draw_rectangle_colour(x-v_msg_width,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2)),x+v_msg_width,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+v_msg_input_h,make_colour_rgb(v_col_black2,v_col_black2,v_col_black2),make_colour_rgb(v_col_black2,v_col_black2,v_col_black2),make_colour_rgb(v_col_black2+20,v_col_black2+20,v_col_black2+20),make_colour_rgb(v_col_black2+10,v_col_black2+10,v_col_black2+10),0); //Draw input 2
+    if v_msg_input_2txt = "Password" { //Check if input 2 text is not Password
+        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+(v_msg_input_h/2),scr_string_fit_to_width(v_msg_input_2txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_2txt_alpha); //Draw input text
+    }
+    else {
+        draw_set_font(global.v_pwd_fnt); //Set password font
+        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+(v_msg_input_h/2),scr_string_fit_to_width(scr_string_mask("•",v_msg_input_2txt),temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_2txt_alpha); //Draw input text
+        draw_set_font(v_msg_fnt); //Set message font
+    }
 }
 draw_set_halign(fa_center); //Set horizontal align text to center
 draw_set_colour(c_gray); //Set button 1 text shadow colour

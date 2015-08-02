@@ -44,26 +44,31 @@ if (global.dvc_width &lt; 960 &amp;&amp; global.dvc_height &lt; 540) { //Check i
     global.scaling = 1; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_1; //Set message font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_1; //Set splash copyright font based on global.scaling
+    global.v_pwd_fnt = fnt_pwd_1; //Set password font based on global.scaling
 }
 else if ((global.dvc_width &gt;= 960 &amp;&amp; global.dvc_height &gt;= 540) &amp;&amp; (global.dvc_width &lt; 1280 &amp;&amp; global.dvc_height &lt; 720)) { //Check if device reso is same as qHD or bigger, but still smaller than HD
     global.scaling = 1; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_1; //Set font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_1; //Set splash copyright font based on global.scaling
+    global.v_pwd_fnt = fnt_pwd_1; //Set password font based on global.scaling
 }
 else if ((global.dvc_width &gt;= 1280 &amp;&amp; global.dvc_height &gt;= 720) &amp;&amp; (global.dvc_width &lt; 1920 &amp;&amp; global.dvc_height &lt; 1080)) { //Check if device reso is same as HD or bigger, but still smaller than FHD
     global.scaling = 1.5; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_1_5; //Set font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_1_5; //Set splash copyright font based on global.scaling
+    global.v_pwd_fnt = fnt_pwd_1_5; //Set password font based on global.scaling
 }
 else if ((global.dvc_width &gt;= 1920 &amp;&amp; global.dvc_height &gt;= 1080) &amp;&amp; (global.dvc_width &lt; 2560 &amp;&amp; global.dvc_height &lt; 1440)) { //Check if device reso is same as FHD or bigger, but still smaller than QHD (Quad HD)
     global.scaling = 2; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_2; //Set font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_2; //Set splash copyright font based on global.scaling
+    global.v_pwd_fnt = fnt_pwd_2; //Set password font based on global.scaling
 }
 else if (global.dvc_width &gt;= 2560 &amp;&amp; global.dvc_height &gt;= 1440) { //Check if device reso is bigger than QHD
     global.scaling = 2.5; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_2_5; //Set font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_2_5; //Set splash copyright font based on global.scaling
+    global.v_pwd_fnt = fnt_pwd_2_5; //Set password font based on global.scaling
 }
 display_set_gui_size(global.dvc_width,global.dvc_height); //Set GUI size based on display vars
 scr_resize_surface_app(); //Resizing display using custom script

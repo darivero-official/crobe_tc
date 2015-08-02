@@ -70,6 +70,7 @@
           <script>scripts\scr_string_is_email.gml</script>
           <script>scripts\scr_string_mask.gml</script>
           <script>scripts\scr_string_fit_to_width.gml</script>
+          <script>scripts\scr_string_wordwrap_width.gml</script>
         </scripts>
       </scripts>
       <scripts name="Engine">
@@ -86,6 +87,7 @@
         <script>scripts\keyboard_get_easing.gml</script>
         <script>scripts\keyboard_set_ease_in.gml</script>
         <script>scripts\keyboard_open.gml</script>
+        <script>scripts\scr_keyboard_mapping.gml</script>
       </scripts>
       <scripts name="Mouse">
         <script>scripts\scr_mouse_device_rectangle.gml</script>
@@ -112,6 +114,12 @@
       <font>fonts\fnt_mes_1_5</font>
       <font>fonts\fnt_mes_2</font>
       <font>fonts\fnt_mes_2_5</font>
+    </fonts>
+    <fonts name="Password">
+      <font>fonts\fnt_pwd_1</font>
+      <font>fonts\fnt_pwd_1_5</font>
+      <font>fonts\fnt_pwd_2</font>
+      <font>fonts\fnt_pwd_2_5</font>
     </fonts>
   </fonts>
   <objects name="objects">

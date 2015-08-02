@@ -1,5 +1,12 @@
+///keyboard_open(children,var,multiple line)
 /*
     This script is imported from another source. Credit to Manuel 777 invadergames.net
+    Used for showing the keyboard
+    
+    Descriptions
+    argument0 = children (i dunno)
+    argument1 = variable to be assign (variable)
+    argument2 = multiple line (bool)
 */
 /*************************************************
  **  Usage example
@@ -17,7 +24,8 @@
 
 *************************************************/
 
-obj = instance_create(0,0,objKeyboard);
-obj.children = argument0;
-keyboard_string = argument1;
+obj = instance_create(0,0,objKeyboard); //Create objKeyboard
+obj.children = argument0; //Set keyboard children
+keyboard_string = argument1; //Set keyboard string
+obj.multiple_line = argument2; //Set multiple line (bool)
 return (obj);
