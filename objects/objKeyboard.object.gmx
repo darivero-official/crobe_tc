@@ -34,7 +34,7 @@ v_msg_fnt_size = font_get_size(global.v_msg_fnt)+(font_get_size(global.v_msg_fnt
 v_width = global.dvc_width-(v_msg_fnt_size*2);
 //Pixelate shader properties
 v_shd_pixelate_time = 0; //Set time for pixelate shader
-v_shd_pixelate_amount = 50; //Set amount for pixelate shader
+v_shd_pixelate_amount = 0; //Set amount for pixelate shader
 surf_shd_pixelate_enable = true; //Enable or disable surface for pixelate shader
 surf_shd_pixelate = surface_create(global.v_shd_res_x,global.v_shd_res_y); //Create a surface for pixelate shader
 surf_shd_pixelate_xscale = 1; //Set xscale properties for pixelate shader surface
@@ -45,8 +45,8 @@ surf_shd_pixelate_alpha = 0.5; //Set alpha properties for pixelate shader surfac
 view_surface_id[0] = surf_shd_pixelate; //Set view surface id to pixelate shader surface
 //Variables from author
 global_dpi = (sqrt(display_get_dpi_x() * display_get_dpi_y()) / 120); //Set dot per inch variable
-highlight_a = make_color_rgb(0, 180, 255); //Set a colour for highlighted button
-highlight_b = make_color_rgb(0, 150, 200); //Set b colour for highlighted button
+highlight_a = make_color_rgb(0,190,0); //Set a colour for highlighted button
+highlight_b = make_color_rgb(0,160,0); //Set b colour for highlighted button
 height = max(global.dvc_width, global.dvc_height)*0.4; //Set keyboard height (max)
 y_offset = global.dvc_height+height; //Set keyboard y offset
 fase = 0; //Set keyboard fase to 0
@@ -58,6 +58,7 @@ mayus = 0; //Shift button
 mayus_hold = 0; //Shift button is hold
 fline = 0; //Set keyboard fline to 0
 sline = 0; //Set keyboard sline to 0
+txt_col = c_white;
 //Additional variables
 scr_keyboard_mapping();
 </string>
@@ -171,6 +172,7 @@ height = max(global.dvc_width, global.dvc_height)*0.35; //Set keyboard height
 if to != 0 { //Check if keyboard is easing
     fase += to * 0.04; //Set fase
     ease_fase = keyboard_get_easing(fase, -3*to); //Set easing fase
+    v_shd_pixelate_amount = 150+(850*(1-ease_fase));
     y_offset = global.dvc_height+( height * (1-ease_fase)); //Set y offset for easing effect
 }
 if fase &gt; 1 &amp;&amp; to == 1 { //Check if keyboard is done easing and keyboard is easing up
@@ -213,6 +215,42 @@ if keyboard_check_released(vk_enter) &amp;&amp; multiple_line = true { //Check i
 if keyboard_check_released(vk_escape) { //Check if escape button is released
     to = -1; //Disable the keyboard
 }
+if instance_exists(objPop_auth) { //Check if objPop_auth is exists
+    var t_obj = objPop_auth; //Set temporary variable t_obj to objPop_auth
+    if t_obj.v_msg_input_sel = 1 { //Check if input 1 is selected
+        if t_obj.v_msg_type = 1 || t_obj.v_msg_type = 0 { //Check if message type is 1 (register) or 0 (login)
+            if scr_string_is_alpha(keyboard_string) || (scr_string_is_alpha(keyboard_string) &amp;&amp; scr_string_is_numeric(keyboard_string)) { //Check string
+                txt_col = c_white; //Set text colour to white
+            }
+            else {
+                txt_col = c_red; //Set text colour to red
+            }
+        }
+    }
+    if t_obj.v_msg_input_sel = 2 { //Check if input 2 is selected
+        if t_obj.v_msg_type = 1 { //Check if message type is 1 (register)
+            if scr_string_is_email(keyboard_string) { //Check string
+                txt_col = c_white; //Set text colour to white
+            }
+            else {
+                txt_col = c_red; //Set text colour to red
+            }
+        }
+        else {
+            if scr_string_is_alpha(keyboard_string) || (scr_string_is_alpha(keyboard_string) &amp;&amp; scr_string_is_numeric(keyboard_string)) { //Check string
+                txt_col = c_white; //Set text colour to white
+            }
+            else {
+                txt_col = c_red; //Set text colour to red
+            }
+        }
+    }
+    if t_obj.v_msg_input_sel = 3 || t_obj.v_msg_input_sel = 4 { //Check if input 3 or 4 is selected
+        if t_obj.v_msg_type = 1 { //Check if message type is 1 (register)
+            txt_col = c_white; //Set text colour to white
+        }
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -229,7 +267,7 @@ if keyboard_check_released(vk_escape) { //Check if escape button is released
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
-        <whoName>other</whoName>
+        <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
@@ -249,18 +287,22 @@ if surf_shd_pixelate_enable = true { //Check if pixelate shader is enabled
     draw_surface_ext(surf_shd_pixelate,view_xview[0],view_yview[0],surf_shd_pixelate_xscale,surf_shd_pixelate_yscale,surf_shd_pixelate_angle,surf_shd_pixelate_blend,surf_shd_pixelate_alpha); //Draw and place shader
     shader_reset();
 }
+//draw_text(100,150,string(string_pos("#",keyboard_string)));
 //Drawing scripts from author
 draw_set_alpha(1*ease_fase);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
-draw_set_font(global.v_msg_fnt)
+draw_set_font(global.v_msg_fnt); //Set message font
 
-key_grad_a = make_color_rgb(100, 100, 100);
-key_grad_b = make_color_rgb(70, 70, 70);
+key_grad_a = make_colour_rgb(20,20,20);
+key_grad_b = make_colour_rgb(10,10,10);
 
-gradient_a = make_color_rgb(40, 40, 40);
-gradient_b = make_color_rgb(0, 0, 0);
-draw_rectangle_color(-2, y_offset-height, global.dvc_width+2, y_offset+2, gradient_a, gradient_a, gradient_b, gradient_b, 0);
+gradient_a = make_colour_rgb(20,20,20);
+gradient_b = make_colour_rgb(0,0,0);
+var t_border_size = (2*global.scaling);
+draw_rectangle_color(-2,y_offset-height-5,global.dvc_width+2,y_offset+2,make_colour_rgb(0,0,0),make_colour_rgb(0,0,0),make_colour_rgb(40,40,40),make_colour_rgb(10,10,10),0);
+draw_rectangle_colour(global.dvc_width/2,y_offset-height-5-t_border_size,0,y_offset-height-5,make_colour_rgb(0,0,0),make_colour_rgb(0,190,0),make_colour_rgb(0,190,0),make_colour_rgb(0,0,0),0); //Draw separator
+draw_rectangle_colour(global.dvc_width/2,y_offset-height-5-t_border_size,global.dvc_width,y_offset-height-5,make_colour_rgb(0,190,0),make_colour_rgb(0,0,0),make_colour_rgb(0,0,0),make_colour_rgb(0,190,0),0); //Draw separator
 
 key_h = height/4;
 key_w = global.dvc_width/10;
@@ -271,8 +313,8 @@ xx = 0;
 for (i=0; i&lt;27; i+=1) {
     am_a = (yy-ry)/height;
     am_b = ((yy-ry)+key_h)/height;
-    start_col = merge_color(key_grad_a, key_grad_b, am_a);
-    end_col   = merge_color(key_grad_a, key_grad_b, am_b);
+    start_col = merge_colour(key_grad_a, key_grad_b, am_a);
+    end_col   = merge_colour(key_grad_a, key_grad_b, am_b);
     
     if (shown_keys == 1 &amp;&amp; i &lt; 27) || (shown_keys == 2 &amp;&amp; i &lt; 27) || (shown_keys == 0 &amp;&amp; i &lt; 26) {
         if (mayus != 0) {
@@ -380,14 +422,56 @@ if (key_back == 1) {
     alarm[0] = 1;
 }
 
-draw_set_halign(fa_left);
-draw_set_valign(fa_top);
-draw_set_colour(c_gray);
-draw_text(v_msg_fnt_size-1,v_msg_fnt_size-1,scr_string_wordwrap_width(keyboard_string,v_width,"#",true)); //Draw text
-draw_set_colour(c_white);
-draw_text(v_msg_fnt_size,v_msg_fnt_size,scr_string_wordwrap_width(keyboard_string,v_width,"#",true)); //Draw text
-scr_draw_reset();
-//draw_text(100,200,string(y_offset))
+draw_set_halign(fa_left); //Set horizontal align to left
+draw_set_valign(fa_top); //Set vertical align to top
+if instance_exists(objPop_auth) { //Check if objPop_auth is exists
+    var t_obj = objPop_auth; //Set temporary variable t_obj to objPop_auth
+    if t_obj.v_msg_input_sel = 2 { //Check if input 2 is selected
+        if t_obj.v_msg_type = 0 { //Check if message type is 0 (login)
+            draw_set_font(global.v_pwd_fnt); //Set password font
+            draw_set_colour(c_gray); //Set text colour to gray
+            draw_text(v_msg_fnt_size-1,v_msg_fnt_size-1,scr_string_wordwrap_width(scr_string_mask("•",keyboard_string),v_width,"#",true)); //Draw text shadow
+            draw_set_colour(txt_col); //Set text colour to white
+            draw_text(v_msg_fnt_size,v_msg_fnt_size,scr_string_wordwrap_width(scr_string_mask("•",keyboard_string),v_width,"#",true)); //Draw text
+            draw_set_font(global.v_msg_fnt); //Set message font
+        }
+        else {
+            draw_set_colour(c_gray); //Set text colour to gray
+            draw_text(v_msg_fnt_size-1,v_msg_fnt_size-1,scr_string_wordwrap_width(keyboard_string,v_width,"#",true)); //Draw text shadow
+            draw_set_colour(txt_col); //Set text colour to white
+            draw_text(v_msg_fnt_size,v_msg_fnt_size,scr_string_wordwrap_width(keyboard_string,v_width,"#",true)); //Draw text
+        }
+    }
+    else if t_obj.v_msg_input_sel = 3 { //Check if input 3 is selected
+        draw_set_font(global.v_pwd_fnt); //Set password font
+        draw_set_colour(c_gray); //Set text colour to gray
+        draw_text(v_msg_fnt_size-1,v_msg_fnt_size-1,scr_string_wordwrap_width(scr_string_mask("•",keyboard_string),v_width,"#",true)); //Draw text shadow
+        draw_set_colour(txt_col); //Set text colour to white
+        draw_text(v_msg_fnt_size,v_msg_fnt_size,scr_string_wordwrap_width(scr_string_mask("•",keyboard_string),v_width,"#",true)); //Draw text
+        draw_set_font(global.v_msg_fnt); //Set message font
+    }
+    else if t_obj.v_msg_input_sel = 4 { //Check if input 4 is selected
+        draw_set_font(global.v_pwd_fnt); //Set password font
+        draw_set_colour(c_gray); //Set text colour to gray
+        draw_text(v_msg_fnt_size-1,v_msg_fnt_size-1,scr_string_wordwrap_width(scr_string_mask("•",keyboard_string),v_width,"#",true)); //Draw text shadow
+        draw_set_colour(txt_col); //Set text colour to white
+        draw_text(v_msg_fnt_size,v_msg_fnt_size,scr_string_wordwrap_width(scr_string_mask("•",keyboard_string),v_width,"#",true)); //Draw text
+        draw_set_font(global.v_msg_fnt); //Set message font
+    }
+    else {
+        draw_set_colour(c_gray); //Set text colour to gray
+        draw_text(v_msg_fnt_size-1,v_msg_fnt_size-1,scr_string_wordwrap_width(keyboard_string,v_width,"#",true)); //Draw text shadow
+        draw_set_colour(txt_col); //Set text colour to white
+        draw_text(v_msg_fnt_size,v_msg_fnt_size,scr_string_wordwrap_width(keyboard_string,v_width,"#",true)); //Draw text
+    }
+}
+else {
+    draw_set_colour(c_gray); //Set text colour to gray
+    draw_text(v_msg_fnt_size-1,v_msg_fnt_size-1,scr_string_wordwrap_width(keyboard_string,v_width,"#",true)); //Draw text shadow
+    draw_set_colour(txt_col); //Set text colour to white
+    draw_text(v_msg_fnt_size,v_msg_fnt_size,scr_string_wordwrap_width(keyboard_string,v_width,"#",true)); //Draw text
+}
+scr_draw_reset(); //Reset all drawings
 </string>
           </argument>
         </arguments>

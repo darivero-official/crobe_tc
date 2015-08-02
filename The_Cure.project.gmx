@@ -71,6 +71,8 @@
           <script>scripts\scr_string_mask.gml</script>
           <script>scripts\scr_string_fit_to_width.gml</script>
           <script>scripts\scr_string_wordwrap_width.gml</script>
+          <script>scripts\scr_string_is_alpha.gml</script>
+          <script>scripts\scr_string_is_numeric.gml</script>
         </scripts>
       </scripts>
       <scripts name="Engine">

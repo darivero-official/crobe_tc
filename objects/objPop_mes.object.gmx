@@ -172,7 +172,7 @@ if device_mouse_y_to_gui(0) &gt;= y+v_msg_height+v_msg_padding &amp;&amp; device
                         }
                     break;
                     case "msg_first_time_conn": //First time connection
-                        scr_pop_mes("Already have an account?",2,"pass_reg","pass_log","Register","Login",1); //Display confirmation message
+                        v_end = "msg_first_time_conn"; //Set ending execution
                     break;
                     case "pass_reg":
                         v_end = "pass_reg"; //Set ending execution
@@ -284,11 +284,16 @@ else {
     }
     else if v_msg_alpha = 0 { //Check if message alpha is 0
         global.btn_allow = true; //Allow any buttons to be active
-        if v_end = "pass_reg" {
-            scr_pop_auth(1); //Display register popup
-        }
-        else if v_end = "pass_log" {
-            scr_pop_auth(0); //Display login popup
+        switch(v_end) { //Switch ending execution variable
+            case "pass_reg":
+                scr_pop_auth(1); //Display register popup
+            break;
+            case "pass_log":
+                scr_pop_auth(0); //Display login popup
+            break;
+            case "msg_first_time_conn":
+                scr_pop_mes("Already have an account?",2,"pass_reg","pass_log","Register","Login",1); //Display confirmation message
+            break;
         }
         instance_destroy(); //Destroy object
     }
