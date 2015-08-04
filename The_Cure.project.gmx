@@ -148,7 +148,7 @@
     <room>rooms\rmSplash</room>
   </rooms>
   <constants number="2">
-    <constant name="passport_server">"http://passport.darivero-official.gq/"</constant>
+    <constant name="passport_server">"http://passport.drvr.gq/"</constant>
     <constant name="salt">"Darivero, is a company with the largest income working in the field of software."</constant>
   </constants>
   <help>

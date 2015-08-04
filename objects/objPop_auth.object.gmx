@@ -42,7 +42,8 @@ v_msg_input_sel = 0; //Set input selected to 0
 v_enabled = true; //Set message is enabled
 v_btn_1_state = "released"; //Set button 1 state to released
 v_m_p = 1*global.scaling; //Border
-v_focus = 1;
+v_focus = 1; //Set focus
+v_http_id = noone; //Set http id
 //Controlling input
 if v_msg_type = 1 { //Check if message type is 1 (register)
     v_msg_input_1txt = "Username"; //Set input 1 text
@@ -141,14 +142,14 @@ if device_mouse_x_to_gui(0) &gt;= x-v_msg_width-v_msg_padding &amp;&amp; device_
         }
     }
     if device_mouse_check_button_released(0,mb_left) &amp;&amp; v_focus = 1 { //Check if left click released on device 0
-        v_btn_1_state = "released"; //Set button 1 state to released
+        //v_btn_1_state = "released"; //Set button 1 state to released
         if v_msg_type = 1 { //Check if message type is 1 (register)
-            //Nothing yet
+            passport_register(v_msg_input_1txt,v_msg_input_2txt,v_msg_input_3txt); //Register to Darivero Passport
         }
         else {
-            //Nothing yet
+            passport_login(v_msg_input_1txt,v_msg_input_2txt); //Login to Darivero Passport
         }
-        v_enabled = false; //Disable this message (destroy)
+        //v_enabled = false; //Disable this message (destroy)
     }
 }
 if instance_exists(objKeyboard) || instance_exists(objPop_mes) { //Check if objKeyboard is not exists
@@ -328,6 +329,40 @@ else {
         instance_destroy(); //Destroy object
     }
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="62">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Connecting to server
+if ds_map_find_value(async_load, "id") == v_http_id {
+    if ds_map_find_value(async_load, "status") &gt;= 0{
+        var v_http_result = ds_map_find_value(async_load, "result"); //Set temporary variable of http result
+        scr_pop_mes(string(v_http_result),1,"","","OK","",1.5);
+    }
+    else {
+        var v_http_result = ds_map_find_value(async_load, "result"); //Set temporary variable of http result
+        scr_pop_mes(string(v_http_result),1,"","","OK","",1.5);
+    }
+}
+
 </string>
           </argument>
         </arguments>

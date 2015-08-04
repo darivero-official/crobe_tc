@@ -27,15 +27,15 @@ if scr_mouse_device_rectangle(argument0,argument1,argument0+argument2,argument1+
 }
 
 draw_set_alpha(1*ease_fase)
-draw_rectangle_colour(argument0-1,argument1-1,argument0+argument2+1,argument1+argument3+1,make_colour_rgb(0,190,0),make_colour_rgb(0,190,0),make_colour_rgb(0,190,0),make_colour_rgb(0,190,0),0);
+//draw_rectangle_colour(argument0-1,argument1-1,argument0+argument2+1,argument1+argument3+1,make_colour_rgb(0,190,0),make_colour_rgb(0,190,0),make_colour_rgb(0,190,0),make_colour_rgb(0,190,0),0);
 draw_rectangle_colour(argument0,argument1,argument0+argument2,argument1+argument3,argument5,argument5,argument6,argument6,0);
 if ret != -1 {
     draw_rectangle_colour(argument0,argument1,argument0+argument2,argument1+argument3,highlight_a,highlight_a,highlight_b,highlight_b,0);
 }
 
 draw_set_alpha(0.5*ease_fase)
-draw_line_width_colour(argument0,argument1,argument0+argument2,argument1,1,c_white,c_white);
-draw_line_width_colour(argument0,argument1+argument3,argument0+argument2,argument1+argument3,1,c_black,c_black);
+draw_line_width_colour(argument0,argument1,argument0+argument2,argument1,1,make_colour_rgb(10,10,10),make_colour_rgb(0,190,0));
+draw_line_width_colour(argument0,argument1+argument3,argument0+argument2,argument1+argument3,1,make_colour_rgb(0,190,0),make_colour_rgb(10,10,10));
 draw_set_alpha(1*ease_fase)
 
 draw_set_halign(fa_center);
