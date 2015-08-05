@@ -49,8 +49,8 @@
   <paths name="paths"/>
   <scripts name="scripts">
     <scripts name="Passport">
-      <script>scripts\passport_login.gml</script>
-      <script>scripts\passport_register.gml</script>
+      <script>scripts\passport_signin.gml</script>
+      <script>scripts\passport_signup.gml</script>
       <script>scripts\passport_mail.gml</script>
     </scripts>
     <scripts name="Properties">
@@ -148,7 +148,7 @@
     <room>rooms\rmSplash</room>
   </rooms>
   <constants number="2">
-    <constant name="passport_server">"http://passport.drvr.gq/"</constant>
+    <constant name="passport_server">"http://passport.darivero.ml/"</constant>
     <constant name="salt">"Darivero, is a company with the largest income working in the field of software."</constant>
   </constants>
   <help>

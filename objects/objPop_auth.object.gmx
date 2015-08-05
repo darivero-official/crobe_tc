@@ -142,12 +142,12 @@ if device_mouse_x_to_gui(0) &gt;= x-v_msg_width-v_msg_padding &amp;&amp; device_
         }
     }
     if device_mouse_check_button_released(0,mb_left) &amp;&amp; v_focus = 1 { //Check if left click released on device 0
-        //v_btn_1_state = "released"; //Set button 1 state to released
+        v_btn_1_state = "released"; //Set button 1 state to released
         if v_msg_type = 1 { //Check if message type is 1 (register)
-            passport_register(v_msg_input_1txt,v_msg_input_2txt,v_msg_input_3txt); //Register to Darivero Passport
+            passport_signup(v_msg_input_2txt,v_msg_input_1txt,v_msg_input_3txt); //Register to Darivero Passport
         }
         else {
-            passport_login(v_msg_input_1txt,v_msg_input_2txt); //Login to Darivero Passport
+            passport_signin(v_msg_input_1txt,v_msg_input_2txt); //Login to Darivero Passport
         }
         //v_enabled = false; //Disable this message (destroy)
     }
@@ -314,6 +314,7 @@ else {
             <string>///Controlling object
 //Controlling popup
 if v_enabled = true { //Check if message is enabled
+    y = global.dvc_height/2; //Set y to device height / 2
     global.btn_allow = false; //Don't allow any buttons to be active
     if v_msg_alpha &lt; 1 { //Check if message alpha is smaller than 1
         v_msg_alpha += 0.2; //Increase message alpha by 0.2
@@ -352,17 +353,19 @@ else {
           <argument>
             <kind>1</kind>
             <string>///Connecting to server
-if ds_map_find_value(async_load, "id") == v_http_id {
-    if ds_map_find_value(async_load, "status") &gt;= 0{
-        var v_http_result = ds_map_find_value(async_load, "result"); //Set temporary variable of http result
-        scr_pop_mes(string(v_http_result),1,"","","OK","",1.5);
+var v_http_result = ds_map_find_value(async_load, "result"); //Set temporary variable of http result
+if v_http_result = "Congratulations! You are registered!" || v_http_result = "You are logged in!" {
+    scr_pop_mes(string(v_http_result),1,"","","Ok","",1.5); //Show result with message
+    v_enabled = false; //Disable this message (destroy)
+}
+else {
+    if v_msg_type = 1 { //Check if message type is 1 (register)
+        scr_pop_mes(string(v_http_result),1,"retry_signup","","Retry","",1.5); //Show result with message
     }
     else {
-        var v_http_result = ds_map_find_value(async_load, "result"); //Set temporary variable of http result
-        scr_pop_mes(string(v_http_result),1,"","","OK","",1.5);
+        scr_pop_mes(string(v_http_result),1,"retry_signin","","Retry","",1.5); //Show result with message 
     }
 }
-
 </string>
           </argument>
         </arguments>

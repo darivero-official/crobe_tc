@@ -80,8 +80,8 @@ if os_type == os_android || os_type == os_ios {
 scr_sounds_load(); //Init sound names
 //Additional variables
 global.imm_haptics = true;
-global.snd_music = true;
-global.snd_fx = true;
+global.snd_music = false;
+global.snd_fx = false;
 global.btn_allow = true;
 global.user_first_time = true;
 

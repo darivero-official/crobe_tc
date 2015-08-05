@@ -138,6 +138,12 @@ if device_mouse_y_to_gui(0) &gt;= y+v_msg_height+v_msg_padding &amp;&amp; device
                     case "exit":
                         game_end(); //Exit the game
                     break;
+                    case "retry_signup": //Register failed
+                        v_end = "retry_signup"; //Set ending execution
+                    break;
+                    case "retry_signin": //Login failed
+                        v_end = "retry_signin"; //Set ending execution
+                    break;
                 }
                 v_enabled = false; //Disable this message (destroy)
             }
@@ -293,6 +299,12 @@ else {
             break;
             case "msg_first_time_conn":
                 scr_pop_mes("Already have an account?",2,"pass_reg","pass_log","Register","Login",1); //Display confirmation message
+            break;
+            case "retry_signup":
+                //scr_pop_auth(1); //Display register popup
+            break;
+            case "retry_signin":
+                //scr_pop_auth(0); //Display login popup
             break;
         }
         instance_destroy(); //Destroy object
