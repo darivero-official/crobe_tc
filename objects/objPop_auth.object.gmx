@@ -144,7 +144,12 @@ if device_mouse_x_to_gui(0) &gt;= x-v_msg_width-v_msg_padding &amp;&amp; device_
     if device_mouse_check_button_released(0,mb_left) &amp;&amp; v_focus = 1 { //Check if left click released on device 0
         v_btn_1_state = "released"; //Set button 1 state to released
         if v_msg_type = 1 { //Check if message type is 1 (register)
-            passport_signup(v_msg_input_2txt,v_msg_input_1txt,v_msg_input_3txt); //Register to Darivero Passport
+            if v_msg_input_3txt = v_msg_input_4txt { //Check if password does match
+                passport_signup(v_msg_input_2txt,v_msg_input_1txt,v_msg_input_3txt); //Register to Darivero Passport
+            }
+            else {
+                scr_pop_mes("Password does not match!",1,"","","Retry","",1.5); //Display popup message
+            }
         }
         else {
             passport_signin(v_msg_input_1txt,v_msg_input_2txt); //Login to Darivero Passport

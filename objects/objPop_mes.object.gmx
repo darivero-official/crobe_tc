@@ -401,7 +401,7 @@ draw_set_colour(c_gray); //Set message text shadow colour
 draw_text_ext(x-1,y-1,v_msg_letter_print,v_msg_fnt_size,v_msg_max_l); //Draw message text shadow
 draw_set_colour(c_white); //Set message text colour
 draw_text_ext(x,y,v_msg_letter_print,v_msg_fnt_size,v_msg_max_l); //Draw message text
-draw_text(100,100,string(xx));
+//draw_text(100,100,string(xx)); //Just for debugging
 scr_draw_reset(); //Reset all draw
 </string>
           </argument>
