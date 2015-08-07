@@ -147,9 +147,10 @@
   <rooms name="rooms">
     <room>rooms\rmSplash</room>
   </rooms>
-  <constants number="2">
+  <constants number="3">
+    <constant name="server">"http://darivero.ml/"</constant>
+    <constant name="product_name">"Crobe"</constant>
     <constant name="passport_server">"http://passport.darivero.ml/"</constant>
-    <constant name="salt">"Darivero, is a company with the largest income working in the field of software."</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

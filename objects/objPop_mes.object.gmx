@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>///Define variables
 //Messaging variables
+xx = 0;
 v_msg_fnt = global.v_msg_fnt; //Set font
 v_msg_important = global.v_msg_important;//Set message important
 v_msg_alpha = 0; //Set message popup alpha to 0
@@ -48,9 +49,10 @@ v_m_p = 1*global.scaling; //Border
 v_msg_letter_time = 0; //Set type write time to 0
 v_msg_letter_spd = 1; //Set type write speed to 1
 v_msg_letter_print = ""; //Set type write print to ""
-v_btn_1_state = "released"; //Set button 1 state to released
-v_btn_2_state = "released"; //Set button 2 state to released
-v_end = ""; //Set ending execution
+v_btn_1_state = "idle"; //Set button 1 state to idle
+v_btn_2_state = "idle"; //Set button 2 state to idle
+//v_end = ""; //Set ending execution
+mail_content["Email Verification"] = "Here is your verification email! &lt;b&gt;COEG123321&lt;/b&gt;"; //Set email content temporary variable
 //Brightness contrast shader properties
 if v_msg_important = 1 { //Check if message is important
     v_shd_bc_contrast_amount_max = -0.5; //Set contrast max amount to -0.5
@@ -94,6 +96,49 @@ v_shd_bc_contrast_amount = 0; //Set contrast amount for brightness contrast shad
             <kind>1</kind>
             <string>///Freeing functions
 surface_free(surf_shd_bc); //Freeing surface
+if global.v_msg_type = 1 &amp;&amp; v_btn_1_state = "released" { //Check if information message and button 1 state is released
+    switch(global.v_msg_btn_1) { //Switch message button 1 function
+        case "exit":
+            game_end(); //Exit the game
+        break;
+        case "passport_verification": //Email verification
+            passport_mail(global.passport_email,"cs@passport.darivero.ml","Darivero","[Passport] Email Verification",mail_content["Email Verification"],"Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received."); //Send verification email
+        break;
+    }
+}
+if global.v_msg_type = 2 { //Check if confirmation message
+    if v_btn_1_state = "released" { //Check if button 1 state is released
+        switch(global.v_msg_btn_1) { //Switch message button 1 function
+            case "exit":
+                game_end(); //Exit the game
+            break;
+            case "msg_first_time": //First time message
+                if os_is_network_connected() = true { //Check if connection is available
+                scr_pop_mes(product_name+" taking a direct connection to Darivero Passport. Connections can be switched off after that, but the connection is still required at the time you perform a backup, login, or buy something.",2,"msg_first_time_conn","exit","Continue","Exit",1.5); //Display confirmation message
+                }
+                else {
+                scr_pop_mes("No internet connection available. Please try again later.",1,"exit",0,"Exit",0,true); //Display information message
+                }
+            break;
+            case "msg_first_time_conn": //First time connection
+                scr_pop_mes("Already have an account?",2,"pass_reg","pass_log","Register","Login",1); //Display confirmation message
+            break;
+            case "pass_reg":
+                scr_pop_auth(1); //Display register popup
+            break;
+        }
+    }
+    if v_btn_2_state = "released" { //Check if button 2 state is released
+        switch(global.v_msg_btn_2) { //Switch message button 2 function
+            case "exit": //Exit
+                game_end(); //Exit the game
+            break;
+            case "pass_log":
+                scr_pop_auth(0); //Display login popup
+            break;
+        }
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -134,17 +179,6 @@ if device_mouse_y_to_gui(0) &gt;= y+v_msg_height+v_msg_padding &amp;&amp; device
             }
             if device_mouse_check_button_released(0,mb_left) { //Check if left click released on device 0
                 v_btn_1_state = "released"; //Set button 1 state to released
-                switch(global.v_msg_btn_1) {
-                    case "exit":
-                        game_end(); //Exit the game
-                    break;
-                    case "retry_signup": //Register failed
-                        v_end = "retry_signup"; //Set ending execution
-                    break;
-                    case "retry_signin": //Login failed
-                        v_end = "retry_signin"; //Set ending execution
-                    break;
-                }
                 v_enabled = false; //Disable this message (destroy)
             }
         }
@@ -165,25 +199,6 @@ if device_mouse_y_to_gui(0) &gt;= y+v_msg_height+v_msg_padding &amp;&amp; device
             }
             if device_mouse_check_button_released(0,mb_left) { //Check if left click released on device 0
                 v_btn_1_state = "released"; //Set button 1 state to released
-                switch(global.v_msg_btn_1) {
-                    case "exit":
-                        game_end(); //Exit the game
-                    break;
-                    case "msg_first_time": //First time message
-                        if os_is_network_connected() = true { //Check if connection is available
-                            scr_pop_mes("Crobe taking a direct connection to Darivero Passport. Connections can be switched off after that, but the connection is still required at the time you perform a backup, login, or buy something.",2,"msg_first_time_conn","exit","Continue","Exit",1.5); //Display confirmation message
-                        }
-                        else {
-                            scr_pop_mes("No internet connection available. Please try again later.",1,"exit",0,"Exit",0,true); //Display information message
-                        }
-                    break;
-                    case "msg_first_time_conn": //First time connection
-                        v_end = "msg_first_time_conn"; //Set ending execution
-                    break;
-                    case "pass_reg":
-                        v_end = "pass_reg"; //Set ending execution
-                    break;
-                }
                 v_enabled = false; //Disable this message (destroy)
             }
         }
@@ -203,14 +218,6 @@ if device_mouse_y_to_gui(0) &gt;= y+v_msg_height+v_msg_padding &amp;&amp; device
             }
             if device_mouse_check_button_released(0,mb_left) { //Check if left click released on device 0
                 v_btn_2_state = "released"; //Set button 2 state to released
-                switch(global.v_msg_btn_2) {
-                    case "exit": //Exit
-                        game_end(); //Exit the game
-                    break;
-                    case "pass_log":
-                        v_end = "pass_log"; //Set ending execution
-                    break;
-                }
                 v_enabled = false; //Disable this message (destroy)
             }
         }
@@ -272,7 +279,8 @@ else {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Controlling object
+            <string>xx = instance_number(objPop_mes)
+///Controlling object
 //Controlling popup
 if v_enabled = true { //Check if message is enabled
     global.btn_allow = false; //Don't allow any buttons to be active
@@ -286,27 +294,10 @@ if v_enabled = true { //Check if message is enabled
 else {
     y += 5*global.scaling;
     if v_msg_alpha &gt; 0 { //Check if message alpha is bigger than 0
-        v_msg_alpha -= 0.1; //Decrease message alpha by 0.2
+       v_msg_alpha -= 0.1; //Decrease message alpha by 0.2
     }
     else if v_msg_alpha = 0 { //Check if message alpha is 0
         global.btn_allow = true; //Allow any buttons to be active
-        switch(v_end) { //Switch ending execution variable
-            case "pass_reg":
-                scr_pop_auth(1); //Display register popup
-            break;
-            case "pass_log":
-                scr_pop_auth(0); //Display login popup
-            break;
-            case "msg_first_time_conn":
-                scr_pop_mes("Already have an account?",2,"pass_reg","pass_log","Register","Login",1); //Display confirmation message
-            break;
-            case "retry_signup":
-                //scr_pop_auth(1); //Display register popup
-            break;
-            case "retry_signin":
-                //scr_pop_auth(0); //Display login popup
-            break;
-        }
         instance_destroy(); //Destroy object
     }
     if v_shd_bc_contrast_amount &lt; 0 { //Check if contrast amount is smaller than 0
@@ -410,6 +401,7 @@ draw_set_colour(c_gray); //Set message text shadow colour
 draw_text_ext(x-1,y-1,v_msg_letter_print,v_msg_fnt_size,v_msg_max_l); //Draw message text shadow
 draw_set_colour(c_white); //Set message text colour
 draw_text_ext(x,y,v_msg_letter_print,v_msg_fnt_size,v_msg_max_l); //Draw message text
+draw_text(100,100,string(xx));
 scr_draw_reset(); //Reset all draw
 </string>
           </argument>

@@ -84,6 +84,7 @@ global.snd_music = false;
 global.snd_fx = false;
 global.btn_allow = true;
 global.user_first_time = true;
+global.passport_email = "";
 
 //THIS OBJECT SHOULD BE CREATED AT ALL ROOMS WITHOUT EXCEPTIONS! (Damar)
 </string>
@@ -109,6 +110,36 @@ global.user_first_time = true;
             <string>///Initializing shader &amp; surfaces
 global.v_shd_res_x = display_get_gui_width(); //Set reso x for scanlines shader
 global.v_shd_res_y = display_get_gui_height(); //Set reso y for scanlines shader
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="62">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Connecting to server
+var v_http_result = ds_map_find_value(async_load, "result"); //Set temporary variable of http result
+if v_http_result = "Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received." { //Check result
+    scr_pop_mes(string(v_http_result),1,"","","Ok","",1); //Show result message
+}
+else {
+    scr_pop_mes(string(v_http_result),1,"","","Retry","",1.5); //Show result message
+}
 </string>
           </argument>
         </arguments>

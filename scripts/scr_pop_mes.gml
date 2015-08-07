@@ -22,6 +22,11 @@ if !global.v_msg_type = 0 { //Check if not notification message
     global.v_msg_btn_2txt = string(argument5); //Set message button 2 text
 }
 global.v_msg_important = argument6; //Set message important
-//if !instance_exists(objPop_mes) { //Check if objPop_mes is not exists
+if instance_exists(objPop_mes) { //Check if objPop_mes is not exists
+    if objPop_mes.v_enabled = false { //Check if objPop_mes is enabled
+        instance_create(display_get_gui_width()/2,display_get_gui_height()/2,objPop_mes); //Display message
+    }
+}
+else {
     instance_create(display_get_gui_width()/2,display_get_gui_height()/2,objPop_mes); //Display message
-//}
+}

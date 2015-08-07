@@ -1,7 +1,6 @@
-///passport_mail(recipient,sender,sender_name,subject,content)
+///mail_send(recipient,sender,sender_name,subject,content)
 /*
-    Created by Damar (Darivero, inc)
-    Used for send email to Passport users
+    >>Created by Damar (Darivero, inc)<<
     
     Descriptions
     argument0 = recipient email address
@@ -11,8 +10,8 @@
     argument4 = content of email (text/HTML)
     
 */
-temp_str = "mail_recipient="+argument0+"&mail_sender="+argument1+"&mail_sender_name="+argument2+"&mail_subject="+argument3+"&mail_content="+argument4; //Set temporary string
-return http_post_string(passport_server,temp_str); //Send email
+temp_str = "mail_recipient="+argument0+"&mail_sender="+argument1+"&mail_sender_name="+argument2+"&mail_subject="+argument3+"&mail_content="+argument4+"&mail_return="+argument5; //Set temporary string
+return http_post_string(passport_server+"mail.php?method=mail",temp_str); //Send email
 
 //LICENSE >> FREE TO USE AND EDIT WITHOUT COMMERCIAL (DO NOT SHARE WTHOUT MY PERMISSION)
 //Email me >> official@darivero-official.gq

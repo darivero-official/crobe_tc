@@ -149,7 +149,6 @@ if device_mouse_x_to_gui(0) &gt;= x-v_msg_width-v_msg_padding &amp;&amp; device_
         else {
             passport_signin(v_msg_input_1txt,v_msg_input_2txt); //Login to Darivero Passport
         }
-        //v_enabled = false; //Disable this message (destroy)
     }
 }
 if instance_exists(objKeyboard) || instance_exists(objPop_mes) { //Check if objKeyboard is not exists
@@ -355,16 +354,12 @@ else {
             <string>///Connecting to server
 var v_http_result = ds_map_find_value(async_load, "result"); //Set temporary variable of http result
 if v_http_result = "Congratulations! You are registered!" || v_http_result = "You are logged in!" {
-    scr_pop_mes(string(v_http_result),1,"","","Ok","",1.5); //Show result with message
+    global.passport_email = v_msg_input_2txt; //Set passport email to input 2 text
+    scr_pop_mes(string(v_http_result),1,"passport_verification","","Ok","",1.5); //Show result with message
     v_enabled = false; //Disable this message (destroy)
 }
 else {
-    if v_msg_type = 1 { //Check if message type is 1 (register)
-        scr_pop_mes(string(v_http_result),1,"retry_signup","","Retry","",1.5); //Show result with message
-    }
-    else {
-        scr_pop_mes(string(v_http_result),1,"retry_signin","","Retry","",1.5); //Show result with message 
-    }
+    scr_pop_mes(string(v_http_result),1,"","","Retry","",1); //Show result with message
 }
 </string>
           </argument>

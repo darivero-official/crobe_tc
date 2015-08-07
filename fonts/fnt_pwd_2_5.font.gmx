@@ -18,8 +18,8 @@
   </ranges>
   <glyphs>
     <glyph character="32" x="2" y="2" w="19" h="75" shift="19" offset="0"/>
-    <glyph character="8226" x="23" y="2" w="16" h="45" shift="23" offset="4"/>
     <glyph character="46" x="41" y="2" w="6" h="60" shift="19" offset="6"/>
+    <glyph character="8226" x="23" y="2" w="16" h="45" shift="23" offset="4"/>
   </glyphs>
   <kerningPairs/>
   <image>fnt_pwd_2_5.png</image>
