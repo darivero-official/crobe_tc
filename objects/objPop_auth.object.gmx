@@ -363,6 +363,9 @@ if v_http_result = "Congratulations! You are registered!" || v_http_result = "Yo
     scr_pop_mes(string(v_http_result),1,"passport_verification","","Ok","",1.5); //Show result with message
     v_enabled = false; //Disable this message (destroy)
 }
+else if v_http_result = "" { //Check if http result is nothing
+    scr_pop_mes("Connection timed out.",1,"","","Retry","",1); //Show message
+}
 else {
     scr_pop_mes(string(v_http_result),1,"","","Retry","",1); //Show result with message
 }

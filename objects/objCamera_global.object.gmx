@@ -137,6 +137,9 @@ var v_http_result = ds_map_find_value(async_load, "result"); //Set temporary var
 if v_http_result = "Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received." { //Check result
     scr_pop_mes(string(v_http_result),1,"","","Ok","",1); //Show result message
 }
+else if v_http_result = "" { //Check if http result is nothing
+    scr_pop_mes("Connection timed out.",1,"","","Retry","",1); //Show message
+}
 </string>
           </argument>
         </arguments>
