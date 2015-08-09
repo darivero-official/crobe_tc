@@ -15,4 +15,3 @@ temp_str = "mail_recipient="+argument0+"&mail_sender="+argument1+"&mail_sender_n
 return http_post_string(passport_server+"connect.php?method=mail",temp_str); //Send email
 
 //LICENSE >> FREE TO USE AND EDIT WITHOUT COMMERCIAL (DO NOT SHARE WTHOUT MY PERMISSION)
-//Email me >> official@darivero-official.gq

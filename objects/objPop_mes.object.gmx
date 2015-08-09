@@ -51,6 +51,7 @@ v_msg_letter_spd = 1; //Set type write speed to 1
 v_msg_letter_print = ""; //Set type write print to ""
 v_btn_1_state = "idle"; //Set button 1 state to idle
 v_btn_2_state = "idle"; //Set button 2 state to idle
+v_http_id = noone;
 //v_end = ""; //Set ending execution
 mail_content["Email Verification"] = "Here is your verification email! &lt;b&gt;COEG123321&lt;/b&gt;"; //Set email content temporary variable
 //Brightness contrast shader properties
@@ -102,7 +103,10 @@ if global.v_msg_type = 1 &amp;&amp; v_btn_1_state = "released" { //Check if info
             game_end(); //Exit the game
         break;
         case "passport_verification": //Email verification
-            passport_mail(global.passport_email,"cs@passport.darivero.ml","Darivero","[Passport] Email Verification",mail_content["Email Verification"],"Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received."); //Send verification email
+            v_http_id = passport_mail(global.passport_email,"cs@passport.darivero.ml","Darivero","[Passport] Email Verification",mail_content["Email Verification"],"Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received."); //Send verification email
+        break;
+        case "passport_read_data": //Read data from server
+            passport_user_data(); //Read user's data
         break;
     }
 }

@@ -50,8 +50,14 @@
   <scripts name="scripts">
     <scripts name="Passport">
       <script>scripts\passport_signin.gml</script>
+      <script>scripts\passport_user_data.gml</script>
       <script>scripts\passport_signup.gml</script>
       <script>scripts\passport_mail.gml</script>
+      <scripts name="Templates">
+        <scripts name="Email">
+          <script>scripts\scr_mail_verification.gml</script>
+        </scripts>
+      </scripts>
     </scripts>
     <scripts name="Properties">
       <scripts name="Camera">
@@ -125,6 +131,9 @@
     </fonts>
   </fonts>
   <objects name="objects">
+    <objects name="Passport">
+      <object>objects\objSync</object>
+    </objects>
     <objects name="Splash">
       <object>objects\objSplash</object>
       <objects name="Menu">
@@ -147,7 +156,8 @@
   <rooms name="rooms">
     <room>rooms\rmSplash</room>
   </rooms>
-  <constants number="3">
+  <constants number="4">
+    <constant name="salt">"Darivero, is a company with the largest income working in the field of software."</constant>
     <constant name="server">"http://darivero.ml/"</constant>
     <constant name="product_name">"Crobe"</constant>
     <constant name="passport_server">"http://passport.darivero.ml/"</constant>

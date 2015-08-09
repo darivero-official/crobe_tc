@@ -69,7 +69,7 @@ else {
     v_col_black2 = 0; //Set black 2 colour
     v_msg_btn_1txt = "Login"; //Set button 1 text
 }
-keyboard = -1;
+keyboard = -1; //Init keyboard
 </string>
           </argument>
         </arguments>
@@ -145,14 +145,14 @@ if device_mouse_x_to_gui(0) &gt;= x-v_msg_width-v_msg_padding &amp;&amp; device_
         v_btn_1_state = "released"; //Set button 1 state to released
         if v_msg_type = 1 { //Check if message type is 1 (register)
             if v_msg_input_3txt = v_msg_input_4txt { //Check if password does match
-                passport_signup(v_msg_input_2txt,v_msg_input_1txt,v_msg_input_3txt); //Register to Darivero Passport
+                v_http_id = passport_signup(v_msg_input_2txt,v_msg_input_1txt,scr_string_encrypt(v_msg_input_3txt,salt)); //Register to Darivero Passport
             }
             else {
                 scr_pop_mes("Password does not match!",1,"","","Retry","",1.5); //Display popup message
             }
         }
         else {
-            passport_signin(v_msg_input_1txt,v_msg_input_2txt); //Login to Darivero Passport
+            v_http_id = passport_signin(v_msg_input_1txt,scr_string_encrypt(v_msg_input_2txt,salt),"null"); //Login to Darivero Passport
         }
     }
 }
@@ -357,18 +357,29 @@ else {
           <argument>
             <kind>1</kind>
             <string>///Connecting to server
-var v_http_result = ds_map_find_value(async_load, "result"); //Set temporary variable of http result
-if v_http_result = "Congratulations! You are registered!" || v_http_result = "You are logged in!" {
-    global.passport_email = v_msg_input_2txt; //Set passport email to input 2 text
-    scr_pop_mes(string(v_http_result),1,"passport_verification","","Ok","",1.5); //Show result with message
-    v_enabled = false; //Disable this message (destroy)
+if ds_map_find_value(async_load,"id") == v_http_id { //Check http id
+    if ds_map_find_value(async_load,"status") == 0 { //Check if status is 0 (success)
+        var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
+        if v_http_result = "Congratulations! You are registered!" { //Check result
+            global.passport_email = v_msg_input_2txt; //Set passport email to input 2 text
+            global.dp_uname = v_msg_input_1txt; //Set user name to input 2 text
+            global.dp_pass = v_msg_input_4txt; //Set user password to input 4 text
+            scr_pop_mes(string(v_http_result),1,"passport_verification","","Ok","",1.5); //Show result with message
+            v_enabled = false; //Disable this message (destroy)
+        }
+        else if v_http_result = "You are logged in!" { //Check result
+            global.passport_email = v_msg_input_2txt; //Set passport email to input 2 text
+            global.dp_uname = v_msg_input_1txt; //Set user name to input 2 text
+            global.dp_pass = v_msg_input_2txt; //Set user password to input 2 text
+            scr_pop_mes(string(v_http_result),1,"passport_read_data","","Ok","",1.5); //Show result with message
+            v_enabled = false; //Disable this message (destroy)
+        }
+        else {
+            scr_pop_mes(string(v_http_result),1,"","","Retry","",1); //Show result with message
+        }
+    }
 }
-else if v_http_result = "" { //Check if http result is nothing
-    scr_pop_mes("Connection timed out.",1,"","","Retry","",1); //Show message
-}
-else {
-    scr_pop_mes(string(v_http_result),1,"","","Retry","",1); //Show result with message
-}
+xx = ds_map_find_value(async_load,"status");
 </string>
           </argument>
         </arguments>

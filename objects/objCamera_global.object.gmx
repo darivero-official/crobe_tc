@@ -85,6 +85,16 @@ global.snd_fx = false;
 global.btn_allow = true;
 global.user_first_time = true;
 global.passport_email = "";
+//Server variables
+global.dp_uid = 0; //Set user id
+global.dp_email = 0; //Set user email address
+global.dp_uname = 0; //Set user name
+global.dp_pass = 0; //Set user password
+global.dp_verified = 0; //Set user verified
+global.dp_role = 0; //Set user role
+global.dp_ucredits = 0; //Set user credits
+global.dp_uscredits = 0; //Set user special credits
+global.dp_ldate = 0; //Set user last login
 
 //THIS OBJECT SHOULD BE CREATED AT ALL ROOMS WITHOUT EXCEPTIONS! (Damar)
 </string>
@@ -133,12 +143,17 @@ global.v_shd_res_y = display_get_gui_height(); //Set reso y for scanlines shader
           <argument>
             <kind>1</kind>
             <string>///Connecting to server
-var v_http_result = ds_map_find_value(async_load, "result"); //Set temporary variable of http result
-if v_http_result = "Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received." { //Check result
-    scr_pop_mes(string(v_http_result),1,"","","Ok","",1); //Show result message
+var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
+if ds_map_find_value(async_load,"status") == 0 { //Check if http status is 0 (success)
+    if v_http_result = "Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received." { //Check result
+        scr_pop_mes(string(v_http_result),1,"","","Ok","",1); //Show result message
+    }
+    else if v_http_result = "" { //Check if http result is nothing
+        scr_pop_mes("Connection timed out.",1,"","","Retry","",1); //Show message
+    }
 }
-else if v_http_result = "" { //Check if http result is nothing
-    scr_pop_mes("Connection timed out.",1,"","","Retry","",1); //Show message
+else { //Handle error for all http event
+    scr_pop_mes("Unexpected error happened. Contact us for this error.",1,"","","Retry","",1); //Show message
 }
 </string>
           </argument>
@@ -186,7 +201,16 @@ font_delete(global.v_msg_fnt);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//draw_text(100,100,string(fps));
+            <string>/*
+draw_text(100,100,global.dp_uid);
+draw_text(100,100+20,global.dp_email);
+draw_text(100,100+40,global.dp_uname);
+draw_text(100,100+60,global.dp_verified);
+draw_text(100,100+80,global.dp_role);
+draw_text(100,100+100,global.dp_ucredits);
+draw_text(100,100+120,global.dp_uscredits);
+draw_text(100,100+140,global.dp_ldate);
+*/
 </string>
           </argument>
         </arguments>
