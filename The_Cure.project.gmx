@@ -50,7 +50,7 @@
   <scripts name="scripts">
     <scripts name="Passport">
       <script>scripts\passport_signin.gml</script>
-      <script>scripts\passport_user_data.gml</script>
+      <script>scripts\passport_parse_user_data.gml</script>
       <script>scripts\passport_signup.gml</script>
       <script>scripts\passport_mail.gml</script>
       <scripts name="Templates">

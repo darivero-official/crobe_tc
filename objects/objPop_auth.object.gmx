@@ -375,7 +375,7 @@ if ds_map_find_value(async_load,"id") == v_http_id { //Check http id
             v_enabled = false; //Disable this message (destroy)
         }
         else {
-            scr_pop_mes(string(v_http_result),1,"","","Retry","",1); //Show result with message
+            scr_pop_mes("The authorization can not be accepted.",1,"","","Retry","",1); //Show result with message
         }
     }
 }

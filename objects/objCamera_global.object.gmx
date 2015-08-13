@@ -80,8 +80,8 @@ if os_type == os_android || os_type == os_ios {
 scr_sounds_load(); //Init sound names
 //Additional variables
 global.imm_haptics = true;
-global.snd_music = false;
-global.snd_fx = false;
+global.snd_music = true;
+global.snd_fx = true;
 global.btn_allow = true;
 global.user_first_time = true;
 global.passport_email = "";
@@ -153,7 +153,11 @@ if ds_map_find_value(async_load,"status") == 0 { //Check if http status is 0 (su
     }
 }
 else { //Handle error for all http event
-    scr_pop_mes("Unexpected error happened. Contact us for this error.",1,"","","Retry","",1); //Show message
+    if instance_exists(objPop_auth) { //Check instance is exists
+        if ds_map_find_value(async_load,"id") = objPop_auth.v_http_id { //Check http id
+            scr_pop_mes("Unfortunately, the server is not responding.",1,"","","Close","",0); //Show message
+        }
+    }
 }
 </string>
           </argument>

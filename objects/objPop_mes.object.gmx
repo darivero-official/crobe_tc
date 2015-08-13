@@ -106,7 +106,7 @@ if global.v_msg_type = 1 &amp;&amp; v_btn_1_state = "released" { //Check if info
             v_http_id = passport_mail(global.passport_email,"cs@passport.darivero.ml","Darivero","[Passport] Email Verification",mail_content["Email Verification"],"Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received."); //Send verification email
         break;
         case "passport_read_data": //Read data from server
-            passport_user_data(); //Read user's data
+            passport_parse_user_data(); //Read user's data
         break;
     }
 }

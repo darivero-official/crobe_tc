@@ -245,6 +245,11 @@ else if v_image_turn = 3 { //Check if image turn is 2 (product logo)
                 scr_pop_mes("It looks like you just opened Crobe for the first time on this device. We will help you to configure your account. Internet connection will be needed after this.",2,"msg_first_time","exit","Continue","Cancel",false); //Display confirmation message
             }
         }
+        if instance_exists(objSync) { //Check if objSync is exists
+            if objSync.v_txt_details = "Data received..." { //Check objSync text details
+                v_image_chance = 0; //Set image chance to 1 (give chance to turn 3 show up)
+            }
+        }
     }
     else {
         v_image_angle_speed_enable = false  //Disable image angle speed
@@ -258,7 +263,8 @@ else if v_image_turn = 3 { //Check if image turn is 2 (product logo)
         }
         else if image_alpha = 0 { //Check if image alpha is same as 0
             //NOTHING TO DO YET
-            game_end();
+            instance_destroy(); //Destroy instance
+            
         }
     }
     image_angle += v_image_angle_speed; //Increase image angle to image angle speed

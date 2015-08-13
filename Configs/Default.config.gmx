@@ -76,7 +76,7 @@
     <option_displayerrors>True</option_displayerrors>
     <option_facebook_app_display_name>Crobe</option_facebook_app_display_name>
     <option_facebook_appid>958952267489559</option_facebook_appid>
-    <option_facebook_enable>-1</option_facebook_enable>
+    <option_facebook_enable>0</option_facebook_enable>
     <option_freeze>false</option_freeze>
     <option_frequency>0</option_frequency>
     <option_frontimage>nil</option_frontimage>
@@ -267,8 +267,8 @@
     <option_savekey>true</option_savekey>
     <option_scale>-1</option_scale>
     <option_scaleprogress>true</option_scaleprogress>
-    <option_sci_UseSCI>0</option_sci_UseSCI>
-    <option_sci_serverLocation>https://github.com/darivero-official/Crobe-The-Cure.git</option_sci_serverLocation>
+    <option_sci_UseSCI>-1</option_sci_UseSCI>
+    <option_sci_serverLocation>https://svn.riouxsvn.com/the_cure</option_sci_serverLocation>
     <option_screenkey>True</option_screenkey>
     <option_screenshotkey>true</option_screenshotkey>
     <option_shortcircuit>True</option_shortcircuit>
