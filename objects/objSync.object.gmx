@@ -174,11 +174,11 @@ else {
     if v_shd_bc_contrast_amount &lt; 0 { //Check if contrast amount is smaller than 0
         v_shd_bc_contrast_amount += 0.1; //Increase contrast amount by 0.1
     }
-    if image_alpha &gt; 0 { //Check if image alpha is bigger than 0
-        image_alpha -= 0.05; //Increase image alpha by 0.05
-    }
     if v_alarm &gt; 0 { //Check if alarm timer is bigger than 0
         v_alarm -= 1; //Decrease alarm timer by 1
+    }
+    if image_alpha &gt; 0 { //Check if image alpha is bigger than 0
+        image_alpha -= 0.05; //Increase image alpha by 0.05
     }
     if v_alarm = 1 { //Check if alarm timer is 1
         instance_destroy(); //Destroy instance

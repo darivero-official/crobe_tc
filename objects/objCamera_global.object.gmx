@@ -79,11 +79,7 @@ if os_type == os_android || os_type == os_ios {
 //Scripts initialization
 scr_sounds_load(); //Init sound names
 //Additional variables
-global.imm_haptics = true;
-global.snd_music = true;
-global.snd_fx = true;
 global.btn_allow = true;
-global.user_first_time = true;
 global.passport_email = "";
 //Server variables
 global.dp_uid = 0; //Set user id
@@ -95,7 +91,38 @@ global.dp_role = 0; //Set user role
 global.dp_ucredits = 0; //Set user credits
 global.dp_uscredits = 0; //Set user special credits
 global.dp_ldate = 0; //Set user last login
-
+//Configuration files
+global.v_ini1 = working_directory+"data.ini"; //Set ini 1 file name
+global.v_ini1_sec1 = "settings"; //Set ini 1 section 1 name
+global.v_ini1_sec2 = "user"; //Set ini 1 section 2 name
+ini_open(global.v_ini1); //Open ini file
+//Data section
+if ini_key_exists(global.v_ini1_sec1,"immersion_haptics") { //Check if key is exists
+    global.imm_haptics = ini_read_real(global.v_ini1_sec1,"immersion_haptics",1); //Set imm_haptics to ini read key immersion_haptics
+}
+else {
+    global.imm_haptics = ini_write_real(global.v_ini1_sec1,"immersion_haptics",1); //Set imm_haptics to ini write key immersion_haptics
+}
+if ini_key_exists(global.v_ini1_sec1,"sound_music") { //Check if key is exists
+    global.snd_music = ini_read_real(global.v_ini1_sec1,"sound_music",1); //Set snd_music to ini read key sound_music
+}
+else {
+    global.snd_music = ini_write_real(global.v_ini1_sec1,"sound_music",1); //Set snd_music to ini write key sound_music
+}
+if ini_key_exists(global.v_ini1_sec1,"sound_fx") { //Check if key is exists
+    global.snd_fx = ini_read_real(global.v_ini1_sec1,"sound_fx",1); //Set snd_fx to ini read key sound_fx
+}
+else {
+    global.snd_fx = ini_write_real(global.v_ini1_sec1,"sound_fx",1); //Set snd_fx to ini write key sound_fx
+}
+//User section
+if ini_key_exists(global.v_ini1_sec2,"user_first_time") { //Check if key is exists
+    global.user_first_time = ini_read_real(global.v_ini1_sec2,"user_first_time",1); //Set user_first_time to ini read key user_first_time
+}
+else {
+    global.user_first_time = ini_write_real(global.v_ini1_sec2,"user_first_time",1); //Set user_first_time to ini write key user_first_time
+}
+ini_close(); //Close ini 1 file
 //THIS OBJECT SHOULD BE CREATED AT ALL ROOMS WITHOUT EXCEPTIONS! (Damar)
 </string>
           </argument>

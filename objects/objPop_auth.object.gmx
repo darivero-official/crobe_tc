@@ -366,6 +366,9 @@ if ds_map_find_value(async_load,"id") == v_http_id { //Check http id
             global.dp_pass = v_msg_input_4txt; //Set user password to input 4 text
             scr_pop_mes(string(v_http_result),1,"passport_verification","","Ok","",1.5); //Show result with message
             v_enabled = false; //Disable this message (destroy)
+            if !global.user_first_time = 0 { //Check if user first time is not 0
+                global.user_first_time = scr_ini_write_key(0,global.v_ini1,global.v_ini1_sec2,"user_first_time",0); //Set user first time to 0
+            }
         }
         else if v_http_result = "You are logged in!" { //Check result
             global.passport_email = v_msg_input_2txt; //Set passport email to input 2 text
@@ -373,6 +376,9 @@ if ds_map_find_value(async_load,"id") == v_http_id { //Check http id
             global.dp_pass = v_msg_input_2txt; //Set user password to input 2 text
             scr_pop_mes(string(v_http_result),1,"passport_read_data","","Ok","",1.5); //Show result with message
             v_enabled = false; //Disable this message (destroy)
+            if !global.user_first_time = 0 { //Check if user first time is not 0
+                global.user_first_time = scr_ini_write_key(0,global.v_ini1,global.v_ini1_sec2,"user_first_time",0); //Set user first time to 0
+            }
         }
         else {
             scr_pop_mes("The authorization can not be accepted.",1,"","","Retry","",1); //Show result with message
