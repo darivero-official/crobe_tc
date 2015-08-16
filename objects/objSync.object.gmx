@@ -86,10 +86,10 @@ v_shd_blur_enable = 1; //Set blur shader disabled
             <kind>1</kind>
             <string>///When destroyed
 if v_process = 7 { //If process is 7 (completed)
-    scr_pop_mes("Start the game now...",1,"","","Start","",0); //Show message
+    scr_pop_mes("The data has been successfully saved.",1,"start","","Start","",0); //Show message
 }
 else {
-    scr_pop_mes("Failed to parse data from passport.",1,"passport_read_data","","Retry","",0); //Show message
+    scr_pop_mes("Failed to parse data from passport.",2,"passport_read_data","pass_log","Retry","Login",1); //Show message
 }
 </string>
           </argument>
@@ -214,9 +214,7 @@ if ds_map_find_value(async_load,"id") == v_http_id_uid { //Check http id
     if ds_map_find_value(async_load,"status") == 0 { //Check if status is 0 (success)
         var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
         if string_length(v_http_result) &lt;= 10 { //Check if result length is smaller than 10 chars
-            ini_open(global.v_ini1); //Open ini 1 file
-            global.dp_uid = scr_ini_write_key(0,global.v_ini1_sec2,"dp_uid",real(v_http_result)); //Set user id to http result
-            ini_close(); //Close ini 1 file
+            global.dp_uid = real(ds_map_add_replace(global.v_ds_map_user,"dp_uid",v_http_result,true)); //Replace user id to the new value
             v_txt_details = "Retrieving user email address..."; //Set text details
             v_process += 1; //Increase process by 1
         }
@@ -227,9 +225,7 @@ if ds_map_find_value(async_load,"id") == v_http_id_email { //Check http id
     if ds_map_find_value(async_load,"status") == 0 { //Check if status is 0 (success)
         var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
         if !v_http_result = "Cannot retrieve data! Contact us for this error." and string_length(v_http_result) &lt;= 255 { //Check result and result length is smaller than 10 chars
-            ini_open(global.v_ini1); //Open ini 1 file
-            global.dp_email = scr_ini_write_key(1,global.v_ini1_sec2,"dp_email",v_http_result); //Set user email to http result
-            ini_close(); //Close ini 1 file
+            global.dp_email = ds_map_add_replace(global.v_ds_map_user,"dp_email",v_http_result,true); //Replace user email to the new value
             v_txt_details = "Retrieving user status..."; //Set text details
             v_process += 1; //Increase process by 1
         }
@@ -240,9 +236,7 @@ if ds_map_find_value(async_load,"id") == v_http_id_verified { //Check http id
     if ds_map_find_value(async_load,"status") == 0 { //Check if status is 0 (success)
         var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
         if string_length(v_http_result) &lt;= 2 &amp;&amp; string_length(v_http_result) &gt;= 0 { //Check if result length is smaller than 10 chars
-            ini_open(global.v_ini1); //Open ini 1 file
-            global.dp_verified = scr_ini_write_key(0,global.v_ini1_sec2,"dp_verified",real(v_http_result)); //Set user status to http result
-            ini_close(); //Close ini 1 file
+            global.dp_verified = real(ds_map_add_replace(global.v_ds_map_user,"dp_verified",v_http_result,true)); //Replace user verified status to the new value
             v_txt_details = "Retrieving user role..."; //Set text details
             v_process += 1; //Increase process by 1
         }
@@ -253,9 +247,7 @@ if ds_map_find_value(async_load,"id") == v_http_id_role { //Check http id
     if ds_map_find_value(async_load,"status") == 0 { //Check if status is 0 (success)
         var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
         if string_length(v_http_result) &lt;= 5 &amp;&amp; string_length(v_http_result) &gt;= 0 { //Check if result length is smaller than 5 chars and bigger than 0
-            ini_open(global.v_ini1); //Open ini 1 file
-            global.dp_role = scr_ini_write_key(1,global.v_ini1_sec2,"dp_role",v_http_result); //Set user role to http result
-            ini_close(); //Close ini 1 file
+            global.dp_role = ds_map_add_replace(global.v_ds_map_user,"dp_role",v_http_result,true); //Replace user role to the new value
             v_txt_details = "Retrieving user credits..."; //Set text details
             v_process += 1; //Increase process by 1
         }
@@ -266,9 +258,7 @@ if ds_map_find_value(async_load,"id") == v_http_id_ucredits { //Check http id
     if ds_map_find_value(async_load,"status") == 0 { //Check if status is 0 (success)
         var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
         if string_length(v_http_result) &lt;= 9 &amp;&amp; string_length(v_http_result) &gt;= 0 { //Check if result length is smaller than 9 chars and bigger than 0
-            ini_open(global.v_ini1); //Open ini 1 file
-            global.dp_ucredits = scr_ini_write_key(0,global.v_ini1_sec2,"dp_ucredits",real(v_http_result)); //Set user credits to http result
-            ini_close(); //Close ini 1 file
+            global.dp_ucredits = real(ds_map_add_replace(global.v_ds_map_user,"dp_ucredits",v_http_result,true)); //Replace user credits to the new value
             v_txt_details = "Retrieving user special credits..."; //Set text details
             v_process += 1; //Increase process by 1
         }
@@ -279,10 +269,7 @@ if ds_map_find_value(async_load,"id") == v_http_id_uscredits { //Check http id
     if ds_map_find_value(async_load,"status") == 0 { //Check if status is 0 (success)
         var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
         if string_length(v_http_result) &lt;= 4 &amp;&amp; string_length(v_http_result) &gt;= 0 { //Check if result length is smaller than 4 chars and bigger than 0
-            global.dp_uscredits = v_http_result; //Set user id to http result
-            ini_open(global.v_ini1); //Open ini 1 file
-            global.dp_uscredits = scr_ini_write_key(0,global.v_ini1_sec2,"dp_uscredits",real(v_http_result)); //Set user special credits to http result
-            ini_close(); //Close ini 1 file
+            global.dp_uscredits = real(ds_map_add_replace(global.v_ds_map_user,"dp_uscredits",v_http_result,true)); //Replace user special credits to the new value
             v_txt_details = "Retrieving user last login date..."; //Set text details
             v_process += 1; //Increase process by 1
         }
@@ -293,9 +280,7 @@ if ds_map_find_value(async_load,"id") == v_http_id_ldate { //Check http id
     if ds_map_find_value(async_load,"status") == 0 { //Check if status is 0 (success)
         var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
         if string_length(v_http_result) = 19 { //Check if result length is 19 chars
-            ini_open(global.v_ini1); //Open ini 1 file
-            global.dp_ldate = scr_ini_write_key(1,global.v_ini1_sec2,"dp_ldate",v_http_result); //Set user last login date to http result
-            ini_close(); //Close ini 1 file
+            global.dp_ldate = ds_map_add_replace(global.v_ds_map_user,"dp_ldate",v_http_result,true); //Replace user last login date to the new value
             v_process += 1; //Increase process by 1
         }
         if v_process = 7 { //If process is 7 (completed)

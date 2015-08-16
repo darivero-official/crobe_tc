@@ -1,6 +1,5 @@
 ///scr_sounds_load()
 /*
-    Created by Damar
     Used for loading music from resources
 */
 //Background music

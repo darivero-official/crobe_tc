@@ -1,6 +1,5 @@
 ///passport_signin(username,password,data to read from db)
 /*
-    >> Created by Damar <<
     Connecting game to passport
     Used for Darivero Passport authorization (login)
     

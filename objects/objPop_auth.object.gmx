@@ -61,10 +61,20 @@ if v_msg_type = 1 { //Check if message type is 1 (register)
     v_msg_btn_1txt = "Register"; //Set button 1 text
 }
 else {
-    v_msg_input_1txt = "Username"; //Set input 1 text
+    if global.dp_uname = "undefined" { //Check if dp_uname is undefined
+        v_msg_input_1txt = "Username"; //Set input 1 text
+    }
+    else {
+        v_msg_input_1txt = global.dp_uname; //Set input 1 text
+    }
     v_msg_input_1txt_alpha = 0.2; //Set input 1 text alpha to 0.2
     v_col_black1 = 0; //Set black 1 colour
-    v_msg_input_2txt = "Password"; //Set input 2 text
+    if global.dp_pass = "undefined" { //Check if dp_pass is undefined
+        v_msg_input_2txt = "Password"; //Set input 2 text
+    }
+    else {
+        v_msg_input_2txt = global.dp_pass; //Set input 2 text
+    }
     v_msg_input_2txt_alpha = 0.2; //Set input 2 text alpha to 0.2
     v_col_black2 = 0; //Set black 2 colour
     v_msg_btn_1txt = "Login"; //Set button 1 text
@@ -362,25 +372,21 @@ if ds_map_find_value(async_load,"id") == v_http_id { //Check http id
         var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
         if v_http_result = "Congratulations! You are registered!" { //Check result
             global.passport_email = v_msg_input_2txt; //Set passport email to input 2 text
-            ini_open(global.v_ini1); //Open ini 1 file
-            global.dp_uname = scr_ini_write_key(1,global.v_ini1_sec2,"dp_uname",v_msg_input_1txt); //Store username to data.ini
-            global.dp_pass = scr_ini_write_key(1,global.v_ini1_sec2,"dp_pass",v_msg_input_4txt); //Store password to data.ini
+            global.dp_uname = ds_map_add_replace(global.v_ds_map_user,"dp_uname",v_msg_input_1txt,true); //Replace user name
+            global.dp_pass = ds_map_add_replace(global.v_ds_map_user,"dp_pass",v_msg_input_4txt,true); //Replace user password
             if global.user_first_time = 1 { //Check if user first time is not 0
-                global.user_first_time = scr_ini_write_key(0,global.v_ini1_sec2,"user_first_time",0); //Set user first time to 0
+                global.user_first_time = ds_map_add_replace(global.v_ds_map_user,"first_time",false,true); //Replace user first time usage to false
             }
-            ini_close(); //Close ini 1 file
             scr_pop_mes(string(v_http_result),1,"passport_verification","","Ok","",1.5); //Show result with message
             v_enabled = false; //Disable this message (destroy)
         }
         else if v_http_result = "You are logged in!" { //Check result
             global.passport_email = v_msg_input_2txt; //Set passport email to input 2 text
-            ini_open(global.v_ini1); //Open ini 1 file
-            global.dp_uname = scr_ini_write_key(1,global.v_ini1_sec2,"dp_uname",v_msg_input_1txt); //Store username to data.ini
-            global.dp_pass = scr_ini_write_key(1,global.v_ini1_sec2,"dp_pass",v_msg_input_2txt); //Store password to data.ini
+            global.dp_uname = ds_map_add_replace(global.v_ds_map_user,"dp_uname",v_msg_input_1txt,true); //Replace user name
+            global.dp_pass = ds_map_add_replace(global.v_ds_map_user,"dp_pass",v_msg_input_2txt,true); //Replace user password
             if global.user_first_time = 1 { //Check if user first time is not 0
-                global.user_first_time = scr_ini_write_key(0,global.v_ini1_sec2,"user_first_time",0); //Set user first time to 0
+                global.user_first_time = ds_map_add_replace(global.v_ds_map_user,"first_time",false,true); //Replace user first time usage to false
             }
-            ini_close(); //Close ini 1 file
             scr_pop_mes(string(v_http_result),1,"passport_read_data","","Ok","",1.5); //Show result with message
             v_enabled = false; //Disable this message (destroy)
         }

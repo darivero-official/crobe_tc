@@ -1,6 +1,5 @@
 ///passport_signup(email,username,password)
 /*
-    >>Created by Damar<<
     Used for Darivero Passport registration
     
     Descriptions

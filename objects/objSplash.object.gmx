@@ -245,8 +245,8 @@ else if v_image_turn = 3 { //Check if image turn is 2 (product logo)
                 scr_pop_mes("It looks like you just opened Crobe for the first time on this device. We will help you to configure your account. Internet connection will be needed after this.",2,"msg_first_time","exit","Continue","Cancel",false); //Display confirmation message
             }
             else {
-                if !os_is_network_connected() { //Check if internet connection available
-                    if (global.dp_uname = "Username" &amp;&amp; global.dp_pass = "Password") { //Check if global username is Username and global password is Password
+                if os_is_network_connected() { //Check if internet connection available
+                    if (global.dp_uname = "undefined" &amp;&amp; global.dp_pass = "undefined") { //Check if global username is Username and global password is Password
                         scr_pop_auth(0); //Show login popup
                     }
                     else {
@@ -254,7 +254,7 @@ else if v_image_turn = 3 { //Check if image turn is 2 (product logo)
                     }
                 }
                 else {
-                    scr_pop_mes("You are in offline mode. You will not able to access Marketplace, Prize, Free roam, etc.",2,"","exit","Continue","Exit",0); //Display information message
+                    scr_pop_mes("You are in offline mode. You will not able to access Marketplace, Prize, Free roam, etc.",2,"start","exit","Continue","Exit",0); //Display information message
                 }
             }
         }

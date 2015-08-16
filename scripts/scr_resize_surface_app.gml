@@ -1,6 +1,5 @@
 ///scr_resize_surface_app()
 /*
-    Created by Damar
     Used for resizing application surface
 */
 //Resizing application surface

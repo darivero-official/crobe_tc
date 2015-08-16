@@ -127,8 +127,13 @@ if global.v_msg_type = 2 { //Check if confirmation message
             case "msg_first_time_conn": //First time connection
                 scr_pop_mes("Already have an account?",2,"pass_reg","pass_log","Register","Login",1); //Display confirmation message
             break;
-            case "pass_reg":
+            case "pass_reg": //Register
                 scr_pop_auth(1); //Display register popup
+            break;
+            case "start": //Start the game
+                if instance_exists(objSplash) { //Check if objSplash is exists
+                    objSplash.v_image_chance = 0; //Set image chance to 1 (give chance to turn 3 show up)
+                }
             break;
         }
     }

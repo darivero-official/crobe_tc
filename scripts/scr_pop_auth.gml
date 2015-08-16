@@ -1,6 +1,5 @@
 ///scr_pop_auth(type)
 /*
-    Created by Damar
     Used for display popup authorization
     
     Description

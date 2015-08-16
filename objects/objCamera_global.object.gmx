@@ -81,92 +81,51 @@ scr_sounds_load(); //Init sound names
 //Additional variables
 global.btn_allow = true;
 global.passport_email = "";
-//Configuration files
-global.v_ini1 = working_directory+"data.ini"; //Set ini 1 file name
-global.v_ini1_sec1 = "settings"; //Set ini 1 section 1 name
-global.v_ini1_sec2 = "user"; //Set ini 1 section 2 name
-ini_open(global.v_ini1); //Open ini file
-//Data section
-if ini_key_exists(global.v_ini1_sec1,"immersion_haptics") { //Check if key is exists
-    global.imm_haptics = ini_read_real(global.v_ini1_sec1,"immersion_haptics",true); //Set imm_haptics to ini read key immersion_haptics
+//Data structures
+global.v_ds_map_settings_filename = working_directory+"settings.dat"; //Set settings data structure map filename
+global.v_ds_map_user_filename = working_directory+"user.dat"; //Set user data structure map filename
+//Ds map settings
+if file_exists(global.v_ds_map_settings_filename) { //Check if ds map settings file is exists
+    global.v_ds_map_settings = ds_map_secure_load(global.v_ds_map_settings_filename); //Load ds map settings
 }
 else {
-    global.imm_haptics = scr_ini_write_key(0,global.v_ini1_sec1,"immersion_haptics",true); //Set imm_haptics to ini write key immersion_haptics
+    global.v_ds_map_settings = ds_map_create(); //Create ds map settings
+    ds_map_add(global.v_ds_map_settings,"imm_haptics",true); //Add immersion haptics setting to ds map settings
+    ds_map_add(global.v_ds_map_settings,"snd_music",true); //Add sound music setting to ds map settings
+    ds_map_add(global.v_ds_map_settings,"snd_fx",true); //Add sound effect setting to ds map settings
+    ds_map_secure_save(global.v_ds_map_settings,global.v_ds_map_settings_filename); //Save ds map settings
 }
-if ini_key_exists(global.v_ini1_sec1,"sound_music") { //Check if key is exists
-    global.snd_music = ini_read_real(global.v_ini1_sec1,"sound_music",true); //Set snd_music to ini read key sound_music
-}
-else {
-    global.snd_music = scr_ini_write_key(0,global.v_ini1_sec1,"sound_music",true); //Set snd_music to ini write key sound_music
-}
-if ini_key_exists(global.v_ini1_sec1,"sound_fx") { //Check if key is exists
-    global.snd_fx = ini_read_real(global.v_ini1_sec1,"sound_fx",true); //Set snd_fx to ini read key sound_fx
-}
-else {
-    global.snd_fx = scr_ini_write_key(0,global.v_ini1_sec1,"sound_fx",true); //Set snd_fx to ini write key sound_fx
-}
-//User section
-if ini_key_exists(global.v_ini1_sec2,"user_first_time") { //Check if key is exists
-    global.user_first_time = ini_read_real(global.v_ini1_sec2,"user_first_time",true); //Set user_first_time to ini read key user_first_time
+global.imm_haptics = ds_map_find_value(global.v_ds_map_settings,"imm_haptics"); //Find immersion haptics setting
+global.snd_music = ds_map_find_value(global.v_ds_map_settings,"snd_music"); //Find sound music setting
+global.snd_fx = ds_map_find_value(global.v_ds_map_settings,"snd_fx"); //Find sound effect setting
+//Ds map user
+if file_exists(global.v_ds_map_user_filename) { //Check if ds map user file is exists
+    global.v_ds_map_user = ds_map_secure_load(global.v_ds_map_user_filename); //Load ds map user
 }
 else {
-    global.user_first_time = scr_ini_write_key(0,global.v_ini1_sec2,"user_first_time",true); //Set user_first_time to ini write key user_first_time
+    global.v_ds_map_user = ds_map_create(); //Create ds map user
+    ds_map_add(global.v_ds_map_user,"first_time",true); //Add first time usage to ds map user
+    ds_map_add(global.v_ds_map_user,"dp_uid",0); //Add user id to ds map user
+    ds_map_add(global.v_ds_map_user,"dp_email","undefined"); //Add user email to ds map user
+    ds_map_add(global.v_ds_map_user,"dp_uname","undefined"); //Add username to ds map user
+    ds_map_add(global.v_ds_map_user,"dp_pass","undefined"); //Add user password to ds map user
+    ds_map_add(global.v_ds_map_user,"dp_verified",false); //Add email verified status to ds map user
+    ds_map_add(global.v_ds_map_user,"dp_role","undefined"); //Add user role to ds map user
+    ds_map_add(global.v_ds_map_user,"dp_ucredits",0); //Add user credits to ds map user
+    ds_map_add(global.v_ds_map_user,"dp_uscredits",0); //Add user special credits to ds map user
+    ds_map_add(global.v_ds_map_user,"dp_ldate","undefined"); //Add user last login date to ds map user
+    ds_map_secure_save(global.v_ds_map_user,global.v_ds_map_user_filename); //Save ds map user
 }
-if ini_key_exists(global.v_ini1_sec2,"dp_uname") { //Check if key is exists
-    global.dp_uname = ini_read_string(global.v_ini1_sec2,"dp_uname","Username"); //Set dp_uname to ini read key dp_uname
-}
-else {
-    global.dp_uname = scr_ini_write_key(1,global.v_ini1_sec2,"dp_uname","Username"); //Set dp_uname to ini write key dp_uname
-}
-if ini_key_exists(global.v_ini1_sec2,"dp_pass") { //Check if key is exists
-    global.dp_pass = ini_read_string(global.v_ini1_sec2,"dp_pass","Password"); //Set dp_pass to ini read key dp_pass
-}
-else {
-    global.dp_pass = scr_ini_write_key(1,global.v_ini1_sec2,"dp_pass","Password"); //Set dp_pass to ini write key dp_pass
-}
-if ini_key_exists(global.v_ini1_sec2,"dp_uid") { //Check if key is exists
-    global.dp_uid = ini_read_real(global.v_ini1_sec2,"dp_uid",0); //Set dp_uid to ini read key dp_uid
-}
-else {
-    global.dp_uid = scr_ini_write_key(0,global.v_ini1_sec2,"dp_uid",0); //Set dp_uid to ini write key dp_uid
-}
-if ini_key_exists(global.v_ini1_sec2,"dp_email") { //Check if key is exists
-    global.dp_email = ini_read_string(global.v_ini1_sec2,"dp_email","undefined"); //Set dp_email to ini read key dp_email
-}
-else {
-    global.dp_email = scr_ini_write_key(1,global.v_ini1_sec2,"dp_email","undefined"); //Set dp_email to ini write key dp_email
-}
-if ini_key_exists(global.v_ini1_sec2,"dp_verified") { //Check if key is exists
-    global.dp_verified = ini_read_real(global.v_ini1_sec2,"dp_verified",0); //Set dp_verified to ini read key dp_verified
-}
-else {
-    global.dp_verified = scr_ini_write_key(0,global.v_ini1_sec2,"dp_verified",0); //Set dp_verified to ini write key dp_verified
-}
-if ini_key_exists(global.v_ini1_sec2,"dp_role") { //Check if key is exists
-    global.dp_role = ini_read_string(global.v_ini1_sec2,"dp_role","undefined"); //Set dp_role to ini read key dp_role
-}
-else {
-    global.dp_role = scr_ini_write_key(1,global.v_ini1_sec2,"dp_role","undefined"); //Set dp_role to ini write key dp_role
-}
-if ini_key_exists(global.v_ini1_sec2,"dp_ucredits") { //Check if key is exists
-    global.dp_ucredits = ini_read_real(global.v_ini1_sec2,"dp_ucredits",0); //Set dp_ucredits to ini read key dp_ucredits
-}
-else {
-    global.dp_ucredits = scr_ini_write_key(0,global.v_ini1_sec2,"dp_ucredits",0); //Set dp_ucredits to ini write key dp_ucredits
-}
-if ini_key_exists(global.v_ini1_sec2,"dp_uscredits") { //Check if key is exists
-    global.dp_uscredits = ini_read_real(global.v_ini1_sec2,"dp_uscredits",0); //Set dp_uscredits to ini read key dp_uscredits
-}
-else {
-    global.dp_uscredits = scr_ini_write_key(0,global.v_ini1_sec2,"dp_uscredits",0); //Set dp_uscredits to ini write key dp_uscredits
-}
-if ini_key_exists(global.v_ini1_sec2,"dp_ldate") { //Check if key is exists
-    global.dp_ldate = ini_read_string(global.v_ini1_sec2,"dp_ldate","undefined"); //Set dp_ldate to ini read key dp_ldate
-}
-else {
-    global.dp_ldate = scr_ini_write_key(1,global.v_ini1_sec2,"dp_ldate","undefined"); //Set dp_ldate to ini write key dp_ldate
-}
-ini_close(); //Close ini 1 file
+global.user_first_time = ds_map_find_value(global.v_ds_map_user,"first_time"); //Find first time usage
+global.dp_uid = ds_map_find_value(global.v_ds_map_user,"dp_uid"); //Find user id
+global.dp_email = ds_map_find_value(global.v_ds_map_user,"dp_email"); //Find user email
+global.dp_uname = ds_map_find_value(global.v_ds_map_user,"dp_uname"); //Find username
+global.dp_pass = ds_map_find_value(global.v_ds_map_user,"dp_pass"); //Find user password
+global.dp_verified = ds_map_find_value(global.v_ds_map_user,"dp_verified"); //Find user verified status
+global.dp_role = ds_map_find_value(global.v_ds_map_user,"dp_role"); //Find user role
+global.dp_ucredits = ds_map_find_value(global.v_ds_map_user,"dp_ucredits"); //Find user credits
+global.dp_uscredits = ds_map_find_value(global.v_ds_map_user,"dp_uscredits"); //Find user special credits
+global.dp_ldate = ds_map_find_value(global.v_ds_map_user,"dp_ldate"); //Find user last login date
 //THIS OBJECT SHOULD BE CREATED AT ALL ROOMS WITHOUT EXCEPTIONS! (Damar)
 </string>
           </argument>
@@ -254,6 +213,8 @@ else { //Handle error for all http event
             <kind>1</kind>
             <string>///Freeing memory
 font_delete(global.v_msg_fnt);
+ds_map_destroy(global.v_ds_map_settings); //Destroy settings ds map
+ds_map_destroy(global.v_ds_map_user); //Destroy user ds map
 </string>
           </argument>
         </arguments>
@@ -276,16 +237,16 @@ font_delete(global.v_msg_fnt);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*
-draw_text(100,100,string(global.dp_uid));
+            <string>
+/**/draw_text(100,100,string(global.dp_uid));
 draw_text(100,100+20,global.dp_email);
-draw_text(100,100+40,global.dp_uname);
+draw_text(100,100+40,string(global.dp_uname)+"|||"+string(global.user_first_time));
 draw_text(100,100+60,string(global.dp_verified));
 draw_text(100,100+80,global.dp_role);
 draw_text(100,100+100,string(global.dp_ucredits));
 draw_text(100,100+120,string(global.dp_uscredits));
 draw_text(100,100+140,global.dp_ldate);
-*/
+/**/
 </string>
           </argument>
         </arguments>

@@ -1,6 +1,6 @@
 ///mail_send(recipient,sender,sender_name,subject,content)
 /*
-    >>Created by Damar (Darivero, inc)<<
+    Used for send email to users
     
     Descriptions
     argument0 = recipient email address (string)

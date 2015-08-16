@@ -1,6 +1,5 @@
 ///scr_pop_mes(text,type,btn1_function,btn2_function,btn1_text,btn2_text,priority)
 /*
-    Created by Damar
     Used for display popup message
     
     Descriptions

@@ -1,6 +1,5 @@
 ///scr_mail_verification(username,email,password,verification code)
 /*
-    Created by Damar
     Email verification template
     
     Descriptions

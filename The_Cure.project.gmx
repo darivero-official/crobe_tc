@@ -101,8 +101,8 @@
         <script>scripts\scr_mouse_device_rectangle.gml</script>
         <script>scripts\scr_mouse_rectangle.gml</script>
       </scripts>
-      <scripts name="Config file">
-        <script>scripts\scr_ini_write_key.gml</script>
+      <scripts name="Data structure">
+        <script>scripts\ds_map_add_replace.gml</script>
       </scripts>
     </scripts>
   </scripts>
