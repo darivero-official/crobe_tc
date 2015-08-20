@@ -86,7 +86,11 @@ v_shd_blur_enable = 1; //Set blur shader disabled
             <kind>1</kind>
             <string>///When destroyed
 if v_process = 7 { //If process is 7 (completed)
-    scr_pop_mes("The data has been successfully saved.",1,"start","","Start","",0); //Show message
+    //scr_pop_mes("The data has been successfully saved.",1,"start","","Start","",0); //Show message
+    if instance_exists(objSplash) { //Check if objSplash is exists
+        objSplash.v_image_turn = 4; //Set image turn to 4
+        objSplash.v_image_chance = 1; //Set image chance to 1 (give chance to turn 2 show up)
+    }
 }
 else {
     scr_pop_mes("Failed to parse data from passport.",2,"passport_read_data","pass_log","Retry","Login",1); //Show message
@@ -337,7 +341,7 @@ if v_shd_blur_enable = 1 { //Check if blur shader is enabled
 //Logo creation
 draw_set_alpha(image_alpha); //Set image alpha
 draw_text(x,y,v_txt_details); //Draw text details
-draw_sprite_ext(sprSplash_crobe_logo,image_index,x-(string_width_ext(v_txt_details,v_msg_fnt_size,display_get_gui_width())/2)-(((290*global.scaling)*image_xscale)/2),y,image_xscale,image_yscale,image_angle,c_white,image_alpha); //Draw loading image
+draw_sprite_ext(sprSplash_loading,image_index,x-(string_width_ext(v_txt_details,v_msg_fnt_size,display_get_gui_width())/2)-(((290*global.scaling)*image_xscale)/2),y,image_xscale,image_yscale,image_angle,c_white,image_alpha); //Draw loading image
 scr_draw_reset(); //Resetting all drawing
 </string>
           </argument>

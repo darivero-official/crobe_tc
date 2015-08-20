@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///Defining variables
+v_http_id = noone; //Set http id
 view_enabled = true; //Enabling view feature
 view_visible[0] = true; //Enabling view 0 visibility
 view_visible[1] = true; //Enabling view 1 visibility
@@ -126,6 +127,7 @@ global.dp_role = ds_map_find_value(global.v_ds_map_user,"dp_role"); //Find user 
 global.dp_ucredits = ds_map_find_value(global.v_ds_map_user,"dp_ucredits"); //Find user credits
 global.dp_uscredits = ds_map_find_value(global.v_ds_map_user,"dp_uscredits"); //Find user special credits
 global.dp_ldate = ds_map_find_value(global.v_ds_map_user,"dp_ldate"); //Find user last login date
+cursor_sprite = sprCursor; //Set cursor
 //THIS OBJECT SHOULD BE CREATED AT ALL ROOMS WITHOUT EXCEPTIONS! (Damar)
 </string>
           </argument>
@@ -181,6 +183,9 @@ if ds_map_find_value(async_load,"status") == 0 { //Check if http status is 0 (su
     else if v_http_result = "" { //Check if http result is nothing
         scr_pop_mes("Connection timed out.",1,"","","Retry","",1); //Show message
     }
+    else {
+        
+    }
 }
 else { //Handle error for all http event
     if instance_exists(objPop_auth) { //Check instance is exists
@@ -212,10 +217,32 @@ else { //Handle error for all http event
           <argument>
             <kind>1</kind>
             <string>///Freeing memory
-font_delete(global.v_msg_fnt);
+//font_delete(global.v_msg_fnt);
 ds_map_destroy(global.v_ds_map_settings); //Destroy settings ds map
 ds_map_destroy(global.v_ds_map_user); //Destroy user ds map
 </string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string></string>
           </argument>
         </arguments>
       </action>
@@ -238,7 +265,7 @@ ds_map_destroy(global.v_ds_map_user); //Destroy user ds map
           <argument>
             <kind>1</kind>
             <string>
-/**/draw_text(100,100,string(global.dp_uid));
+/**//*draw_text(100,100,string(global.dp_uid));
 draw_text(100,100+20,global.dp_email);
 draw_text(100,100+40,string(global.dp_uname)+"|||"+string(global.user_first_time));
 draw_text(100,100+60,string(global.dp_verified));
@@ -246,7 +273,7 @@ draw_text(100,100+80,global.dp_role);
 draw_text(100,100+100,string(global.dp_ucredits));
 draw_text(100,100+120,string(global.dp_uscredits));
 draw_text(100,100+140,global.dp_ldate);
-/**/
+*/
 </string>
           </argument>
         </arguments>

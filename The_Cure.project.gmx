@@ -33,6 +33,7 @@
       <sprites name="Logo">
         <sprite>sprites\sprSplash_logo</sprite>
         <sprite>sprites\sprSplash_immersion_logo</sprite>
+        <sprite>sprites\sprSplash_loading</sprite>
         <sprite>sprites\sprSplash_crobe_logo</sprite>
       </sprites>
       <sprites name="Menu">
@@ -43,20 +44,28 @@
       <sprites name="Keyboard">
         <sprite>sprites\sprKey_bt_special</sprite>
       </sprites>
+      <sprites name="Cursor">
+        <sprite>sprites\sprCursor</sprite>
+      </sprites>
     </sprites>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
   <scripts name="scripts">
-    <scripts name="Passport">
-      <script>scripts\passport_signin.gml</script>
-      <script>scripts\passport_parse_user_data.gml</script>
-      <script>scripts\passport_signup.gml</script>
-      <script>scripts\passport_mail.gml</script>
-      <scripts name="Templates">
-        <scripts name="Email">
-          <script>scripts\scr_mail_verification.gml</script>
+    <scripts name="Server">
+      <scripts name="Passport">
+        <script>scripts\passport_mail.gml</script>
+        <script>scripts\passport_signup.gml</script>
+        <script>scripts\passport_parse_user_data.gml</script>
+        <script>scripts\passport_signin.gml</script>
+        <scripts name="Templates">
+          <scripts name="Email">
+            <script>scripts\scr_mail_verification.gml</script>
+          </scripts>
         </scripts>
+      </scripts>
+      <scripts name="The cure">
+        <script>scripts\crb_tc_get_splash.gml</script>
       </scripts>
     </scripts>
     <scripts name="Properties">
@@ -134,8 +143,10 @@
     </fonts>
   </fonts>
   <objects name="objects">
-    <objects name="Passport">
-      <object>objects\objSync</object>
+    <objects name="Server">
+      <objects name="Passport">
+        <object>objects\objSync</object>
+      </objects>
     </objects>
     <objects name="Splash">
       <object>objects\objSplash</object>
