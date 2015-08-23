@@ -1,4 +1,4 @@
-///scr_mail_verification(username,email,password,verification code)
+///template_mail_verification(username,email,password,code)
 /*
     Email verification template
     

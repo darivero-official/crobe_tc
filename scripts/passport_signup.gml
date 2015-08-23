@@ -1,9 +1,9 @@
 ///passport_signup(email,username,password)
 /*
-    Used for Darivero Passport registration
+    Signing up user to Darivero Passport
     
     Descriptions
-    argument0 = email address (string)
+    argument0 = user email address (string)
     argument1 = username (string)
     argument2 = password (string)
 */

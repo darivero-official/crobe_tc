@@ -1,10 +1,11 @@
-///scr_string_is_email(string)
+///string_email(string)
 /*
     Returns whether the given string is formatted as an email address
     
     Description
-    argument0 = string to be checked (string)
+    argument0 = string (string)
 */
+//GMLscripts.com/license
 var _email, _email_reverse, _email_alphanum, _email_at_position, _email_at_count, _email_dot_position, 
 _email_dot_count, _email_domain, _email_domain_reverse, _i;
 

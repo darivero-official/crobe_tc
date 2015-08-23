@@ -32,7 +32,7 @@ image_xscale = 0.2*global.scaling; //Set image xscale
 image_yscale = 0.2*global.scaling; //Set image yscale
 v_msg_fnt_size = font_get_size(global.v_msg_fnt)+(font_get_size(global.v_msg_fnt)/2); //Get font size from v_msg_fnt
 v_dp_uname = global.dp_uname;
-v_dp_pass = scr_string_encrypt(global.dp_pass,salt);
+v_dp_pass = string_encrypt(global.dp_pass,salt);
 v_http_id_uid = passport_signin(v_dp_uname,v_dp_pass,"dp_uid"); //Read user id
 v_http_id_email = noone; //Set user email address
 v_http_id_uname = noone; //Set user name
@@ -93,7 +93,7 @@ if v_process = 7 { //If process is 7 (completed)
     }
 }
 else {
-    scr_pop_mes("Failed to parse data from passport.",2,"passport_read_data","pass_log","Retry","Login",1); //Show message
+    popup_message("Failed to parse data from passport.",2,"passport_read_data","pass_log","Retry","Login",1); //Show message
 }
 </string>
           </argument>
@@ -342,7 +342,7 @@ if v_shd_blur_enable = 1 { //Check if blur shader is enabled
 draw_set_alpha(image_alpha); //Set image alpha
 draw_text(x,y,v_txt_details); //Draw text details
 draw_sprite_ext(sprSplash_loading,image_index,x-(string_width_ext(v_txt_details,v_msg_fnt_size,display_get_gui_width())/2)-(((290*global.scaling)*image_xscale)/2),y,image_xscale,image_yscale,image_angle,c_white,image_alpha); //Draw loading image
-scr_draw_reset(); //Resetting all drawing
+draw_reset(); //Resetting all drawing
 </string>
           </argument>
         </arguments>

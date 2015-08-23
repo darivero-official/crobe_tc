@@ -118,17 +118,17 @@ if global.v_msg_type = 2 { //Check if confirmation message
             break;
             case "msg_first_time": //First time message
                 if os_is_network_connected() = true { //Check if connection is available
-                scr_pop_mes(product_name+" taking a direct connection to Darivero Passport. Connections can be switched off after that, but the connection is still required at the time you perform a backup, login, or buy something.",2,"msg_first_time_conn","exit","Continue","Exit",1.5); //Display confirmation message
+                popup_message(product_name+" taking a direct connection to Darivero Passport. Connections can be switched off after that, but the connection is still required at the time you perform a backup, login, or buy something.",2,"msg_first_time_conn","exit","Continue","Exit",1.5); //Display confirmation message
                 }
                 else {
-                scr_pop_mes("No internet connection available. Please try again later.",1,"exit",0,"Exit",0,true); //Display information message
+                popup_message("No internet connection available. Please try again later.",1,"exit",0,"Exit",0,true); //Display information message
                 }
             break;
             case "msg_first_time_conn": //First time connection
-                scr_pop_mes("Already have an account?",2,"pass_reg","pass_log","Register","Login",1); //Display confirmation message
+                popup_message("Already have an account?",2,"pass_reg","pass_log","Register","Login",1); //Display confirmation message
             break;
             case "pass_reg": //Register
-                scr_pop_auth(1); //Display register popup
+                popup_auth_display(1); //Display register popup
             break;
             case "start": //Start the game
                 if instance_exists(objSplash) { //Check if objSplash is exists
@@ -143,7 +143,7 @@ if global.v_msg_type = 2 { //Check if confirmation message
                 game_end(); //Exit the game
             break;
             case "pass_log":
-                scr_pop_auth(0); //Display login popup
+                popup_auth_display(0); //Display login popup
             break;
         }
     }
@@ -349,7 +349,7 @@ if v_msg_important = 1 || v_msg_important = 1.5 { //Check if message is importan
     shader_reset();
 }
 //Draw properties
-scr_draw_set_center_alignment();
+draw_set_align("center"); //Set drawing alignment to center
 draw_set_font(v_msg_fnt); //Set message font
 draw_set_alpha(v_msg_alpha); //Set message alpha
 //Draw popup rectangle
@@ -411,7 +411,7 @@ draw_text_ext(x-1,y-1,v_msg_letter_print,v_msg_fnt_size,v_msg_max_l); //Draw mes
 draw_set_colour(c_white); //Set message text colour
 draw_text_ext(x,y,v_msg_letter_print,v_msg_fnt_size,v_msg_max_l); //Draw message text
 //draw_text(100,100,string(xx)); //Just for debugging
-scr_draw_reset(); //Reset all draw
+draw_reset(); //Reset all draw
 </string>
           </argument>
         </arguments>

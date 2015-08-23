@@ -155,14 +155,14 @@ if device_mouse_x_to_gui(0) &gt;= x-v_msg_width-v_msg_padding &amp;&amp; device_
         v_btn_1_state = "released"; //Set button 1 state to released
         if v_msg_type = 1 { //Check if message type is 1 (register)
             if v_msg_input_3txt = v_msg_input_4txt { //Check if password does match
-                v_http_id = passport_signup(v_msg_input_2txt,v_msg_input_1txt,scr_string_encrypt(v_msg_input_3txt,salt)); //Register to Darivero Passport
+                v_http_id = passport_signup(v_msg_input_2txt,v_msg_input_1txt,string_encrypt(v_msg_input_3txt,salt)); //Register to Darivero Passport
             }
             else {
-                scr_pop_mes("Password does not match!",1,"","","Retry","",1.5); //Display popup message
+                popup_message("Password does not match!",1,"","","Retry","",1.5); //Display popup message
             }
         }
         else {
-            v_http_id = passport_signin(v_msg_input_1txt,scr_string_encrypt(v_msg_input_2txt,salt),"null"); //Login to Darivero Passport
+            v_http_id = passport_signin(v_msg_input_1txt,string_encrypt(v_msg_input_2txt,salt),"null"); //Login to Darivero Passport
         }
     }
 }
@@ -377,7 +377,7 @@ if ds_map_find_value(async_load,"id") == v_http_id { //Check http id
             if global.user_first_time = 1 { //Check if user first time is not 0
                 global.user_first_time = ds_map_add_replace(global.v_ds_map_user,"first_time",false,true); //Replace user first time usage to false
             }
-            scr_pop_mes(string(v_http_result),1,"passport_verification","","Ok","",1.5); //Show result with message
+            popup_message(string(v_http_result),1,"passport_verification","","Ok","",1.5); //Show result with message
             v_enabled = false; //Disable this message (destroy)
         }
         else if v_http_result = "You are logged in!" { //Check result
@@ -387,11 +387,11 @@ if ds_map_find_value(async_load,"id") == v_http_id { //Check http id
             if global.user_first_time = 1 { //Check if user first time is not 0
                 global.user_first_time = ds_map_add_replace(global.v_ds_map_user,"first_time",false,true); //Replace user first time usage to false
             }
-            scr_pop_mes(string(v_http_result),1,"passport_read_data","","Ok","",1.5); //Show result with message
+            popup_message(string(v_http_result),1,"passport_read_data","","Ok","",1.5); //Show result with message
             v_enabled = false; //Disable this message (destroy)
         }
         else {
-            scr_pop_mes("The authorization can not be accepted.",1,"","","Retry","",1); //Show result with message
+            popup_message("The authorization can not be accepted.",1,"","","Retry","",1); //Show result with message
         }
     }
 }
@@ -420,7 +420,7 @@ xx = ds_map_find_value(async_load,"status");
             <kind>1</kind>
             <string>///Drawing object
 //Draw properties
-scr_draw_set_center_alignment();
+draw_set_align("center");
 draw_set_font(v_msg_fnt); //Set message font
 draw_set_alpha(v_msg_alpha); //Set message alpha
 //Draw popup rectangle
@@ -442,32 +442,32 @@ draw_set_halign(fa_left); //Set horizontal align text to left
 //Input 1
 draw_rectangle(x-v_msg_width-v_m_p,y-v_msg_height-v_m_p,x+v_msg_width+v_m_p,y-v_msg_height+v_msg_input_h+v_m_p,1); //Draw input border
 draw_rectangle_colour(x-v_msg_width,y-v_msg_height,x+v_msg_width,y-v_msg_height+v_msg_input_h,make_colour_rgb(v_col_black1,v_col_black1,v_col_black1),make_colour_rgb(v_col_black1,v_col_black1,v_col_black1),make_colour_rgb(v_col_black1+20,v_col_black1+20,v_col_black1+20),make_colour_rgb(v_col_black1+10,v_col_black1+10,v_col_black1+10),0); //Draw input 1
-draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h/2),scr_string_fit_to_width(v_msg_input_1txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_1txt_alpha); //Draw input text
+draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h/2),string_fit_width(v_msg_input_1txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_1txt_alpha); //Draw input text
 if v_msg_type = 1 { //Check if message type is 1 (register)
     //Input 2
     draw_rectangle(x-v_msg_width-v_m_p,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))-v_m_p,x+v_msg_width+v_m_p,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+v_msg_input_h+v_m_p,1); //Draw input border
     draw_rectangle_colour(x-v_msg_width,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2)),x+v_msg_width,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+v_msg_input_h,make_colour_rgb(v_col_black2,v_col_black2,v_col_black2),make_colour_rgb(v_col_black2,v_col_black2,v_col_black2),make_colour_rgb(v_col_black2+20,v_col_black2+20,v_col_black2+20),make_colour_rgb(v_col_black2+10,v_col_black2+10,v_col_black2+10),0); //Draw input 2
-    draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+(v_msg_input_h/2),scr_string_fit_to_width(v_msg_input_2txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_2txt_alpha); //Draw input text
+    draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+(v_msg_input_h/2),string_fit_width(v_msg_input_2txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_2txt_alpha); //Draw input text
     //Input 3
     draw_rectangle(x-v_msg_width-v_m_p,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2)-v_m_p,x+v_msg_width+v_m_p,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2)+v_msg_input_h+v_m_p,1); //Draw input border
     draw_rectangle_colour(x-v_msg_width,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2),x+v_msg_width,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2)+v_msg_input_h,make_colour_rgb(v_col_black3,v_col_black3,v_col_black3),make_colour_rgb(v_col_black3,v_col_black3,v_col_black3),make_colour_rgb(v_col_black3+20,v_col_black3+20,v_col_black3+20),make_colour_rgb(v_col_black3+10,v_col_black3+10,v_col_black3+10),0); //Draw input 3
     if v_msg_input_3txt = "Password" { //Check if input 3 text is not Password
-        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2)+(v_msg_input_h/2),scr_string_fit_to_width(v_msg_input_3txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_3txt_alpha); //Draw input text
+        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2)+(v_msg_input_h/2),string_fit_width(v_msg_input_3txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_3txt_alpha); //Draw input text
     }
     else {
         draw_set_font(global.v_pwd_fnt); //Set password font
-        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2)+(v_msg_input_h/2),scr_string_fit_to_width(scr_string_mask("•",v_msg_input_3txt),temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_3txt_alpha); //Draw input text
+        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*2)+(v_msg_input_h/2),string_fit_width(string_mask("•",v_msg_input_3txt),temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_3txt_alpha); //Draw input text
         draw_set_font(v_msg_fnt); //Set message font
     }
     //Input 4
     draw_rectangle(x-v_msg_width-v_m_p,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)-v_m_p,x+v_msg_width+v_m_p,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)+v_msg_input_h+v_m_p,1); //Draw input border
     draw_rectangle_colour(x-v_msg_width,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3),x+v_msg_width,y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)+v_msg_input_h,make_colour_rgb(v_col_black4,v_col_black4,v_col_black4),make_colour_rgb(v_col_black4,v_col_black4,v_col_black4),make_colour_rgb(v_col_black4+20,v_col_black4+20,v_col_black4+20),make_colour_rgb(v_col_black4+20,v_col_black4+20,v_col_black4+20),0); //Draw input 4
     if v_msg_input_4txt = "Repeat password" { //Check if input 4 text is not Repeat password
-        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)+(v_msg_input_h/2),scr_string_fit_to_width(v_msg_input_4txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_4txt_alpha); //Draw input text
+        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)+(v_msg_input_h/2),string_fit_width(v_msg_input_4txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_4txt_alpha); //Draw input text
     }
     else {
         draw_set_font(global.v_pwd_fnt); //Set password font
-        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)+(v_msg_input_h/2),scr_string_fit_to_width(scr_string_mask("•",v_msg_input_4txt),temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_4txt_alpha); //Draw input text
+        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+((v_msg_input_h+(v_msg_padding/2))*3)+(v_msg_input_h/2),string_fit_width(string_mask("•",v_msg_input_4txt),temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_4txt_alpha); //Draw input text
         draw_set_font(v_msg_fnt); //Set message font
     }
 }
@@ -476,11 +476,11 @@ else {
     draw_rectangle(x-v_msg_width-v_m_p,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))-v_m_p,x+v_msg_width+v_m_p,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+v_msg_input_h+v_m_p,1); //Draw input border
     draw_rectangle_colour(x-v_msg_width,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2)),x+v_msg_width,y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+v_msg_input_h,make_colour_rgb(v_col_black2,v_col_black2,v_col_black2),make_colour_rgb(v_col_black2,v_col_black2,v_col_black2),make_colour_rgb(v_col_black2+20,v_col_black2+20,v_col_black2+20),make_colour_rgb(v_col_black2+10,v_col_black2+10,v_col_black2+10),0); //Draw input 2
     if v_msg_input_2txt = "Password" { //Check if input 2 text is not Password
-        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+(v_msg_input_h/2),scr_string_fit_to_width(v_msg_input_2txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_2txt_alpha); //Draw input text
+        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+(v_msg_input_h/2),string_fit_width(v_msg_input_2txt,temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_2txt_alpha); //Draw input text
     }
     else {
         draw_set_font(global.v_pwd_fnt); //Set password font
-        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+(v_msg_input_h/2),scr_string_fit_to_width(scr_string_mask("•",v_msg_input_2txt),temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_2txt_alpha); //Draw input text
+        draw_text_colour(x-v_msg_width+(v_msg_padding/2),y-v_msg_height+(v_msg_input_h+(v_msg_padding/2))+(v_msg_input_h/2),string_fit_width(string_mask("•",v_msg_input_2txt),temp_input_width,"..."),c_white,c_white,c_white,c_white,v_msg_input_2txt_alpha); //Draw input text
         draw_set_font(v_msg_fnt); //Set message font
     }
 }

@@ -87,7 +87,7 @@ v_msg_fnt_size = font_get_size(global.v_msg_fnt)+(font_get_size(global.v_msg_fnt
 if os_is_network_connected() = true { //Check if device is connected to internet
     img_splash = 0; //Set splash image
     img_splash_url = 0; //Set splash img url
-    v_http_id_spl = crb_tc_get_splash("1","tc_imgurl"); //Import splash screen
+    v_http_id_spl = crobe_get_splash("1","tc_imgurl"); //Import splash screen
     background_alpha[0] = 0; //Set background alpha
 }
 else {
@@ -274,19 +274,19 @@ else if v_image_turn = 3 { //Check if image turn is 2 (product logo)
         }
         if image_alpha = 1.4 { //Check if image alpha is same as 1.4
             if global.user_first_time = true { //Check if this is first time for user
-                scr_pop_mes("It looks like you just opened Crobe for the first time on this device. We will help you to configure your account. Internet connection will be needed after this.",2,"msg_first_time","exit","Continue","Cancel",false); //Display confirmation message
+                popup_message("It looks like you just opened Crobe for the first time on this device. We will help you to configure your account. Internet connection will be needed after this.",2,"msg_first_time","exit","Continue","Cancel",false); //Display confirmation message
             }
             else {
                 if os_is_network_connected() { //Check if internet connection available
                     if (global.dp_uname = "undefined" &amp;&amp; global.dp_pass = "undefined") { //Check if global username is Username and global password is Password
-                        scr_pop_auth(0); //Show login popup
+                        popup_auth_display(0); //Show login popup
                     }
                     else {
                         passport_parse_user_data(); //Parse user data from Passport
                     }
                 }
                 else {
-                    scr_pop_mes("You are in offline mode. You will not able to access Marketplace, Prize, Free roam, etc.",2,"start","exit","Continue","Exit",0); //Display information message
+                    popup_message("You are in offline mode. You will not able to access Marketplace, Prize, Free roam, etc.",2,"start","exit","Continue","Exit",0); //Display information message
                 }
             }
         }
@@ -427,7 +427,7 @@ if surf_shd_pixelate_enable = true { //Check if pixelate shader is enabled
     draw_surface_ext(surf_shd_pixelate,view_xview[0],view_yview[0],surf_shd_pixelate_xscale,surf_shd_pixelate_yscale,surf_shd_pixelate_angle,surf_shd_pixelate_blend,surf_shd_pixelate_alpha); //Draw and place shader
     shader_reset();
 }
-scr_draw_reset(); //Reset all draw
+draw_reset(); //Reset all draw
 </string>
           </argument>
         </arguments>
@@ -475,7 +475,7 @@ if v_image_turn = 4 { //Check if image turn is 4
     draw_set_colour(c_white); //Set drawing colour
     draw_text(x,display_get_gui_height()-100*global.scaling,"Tap anywhere to continue"); //Draw tap anywhere text
 }
-scr_draw_reset(); //Reset all draw
+draw_reset(); //Reset all draw
 </string>
           </argument>
         </arguments>

@@ -1,4 +1,7 @@
-///scr_resize_view(view_index)
+///camera_resize_view(view_index)
+/*
+    Resizing view to device display size
+*/
 //Check device reso
 if global.dvc_width < 960 && global.dvc_height < 540 {
     view_wview[argument0] = global.dvc_width*2; //Setting view argument0 width to device width var * 2

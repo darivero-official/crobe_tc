@@ -1,9 +1,9 @@
-///scr_sounds_load()
+///crobe_sound_load()
 /*
-    Used for loading music from resources
+    Import music from resources
 */
 //Background music
-ex_audio_load("sbg_earthspace",sndMenu_backsound); //Load menu background music titled "Earth Space"
+ex_audio_load("sndBack_menu_main_earthspace",sndBack_menu_main_earthspace); //Load menu background music titled "Earth Space"
 //Effects music
 ex_audio_load("sndThunder",sndThunder); //Load thunder sfx
 ex_audio_load("sndThunder2",sndThunder2); //Load thunder 2 sfx
@@ -16,8 +16,8 @@ ex_audio_load("sndTick_close",sndTick_close); //Load tick close sfx
 ex_audio_load("sndTick_close_long",sndTick_close_long); //Load tick close long sfx
 ex_audio_load("sndTick_tiny",sndTick_tiny); //Load tick tiny sfx
 //Set classes
-ex_audio_class_create("backsound"); //Create class for backsounds
-ex_audio_class_add_sound("sbg_earthspace","backsound"); //Add menu backsound to class backsound
+ex_audio_class_create("back"); //Create class for backsounds
+ex_audio_class_add_sound("sndBack_menu_main_earthspace","back"); //Add menu backsound to class backsound
 //SFXs
 ex_audio_class_create("sfx"); //Create class for sound effects
 ex_audio_class_add_sound("sndThunder","sfx"); //Add thunder sfx to class sfx

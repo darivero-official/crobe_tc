@@ -5,7 +5,7 @@
 var ret;
 ret = -1;
 
-if scr_mouse_device_rectangle(argument0,argument1,argument0+argument2,argument1+argument3,0) {
+if mouse_device_rectangle(argument0,argument1,argument0+argument2,argument1+argument3,0) {
     if device_mouse_check_button(0,mb_left) {
         ret = 0;
     }

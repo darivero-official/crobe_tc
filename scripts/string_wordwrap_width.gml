@@ -1,15 +1,14 @@
-///scr_string_wordwrap_width(string,width,break,split)
-//
-//  Returns a given string, word wrapped to a pixel width,
-//  with line break characters inserted between words.
-//  Uses the currently defined font to determine text width.
-//
-//      string      text to word wrap, string
-//      width       maximum pixel width before a line break, real
-//      break       line break characters to insert into text, string
-//      split       split words that are longer than the maximum, bool
-//
-/// GMLscripts.com/license
+///string_wordwrap_width(string,width,break,split)
+/*
+    Wrap the given string to the given width
+    
+    Descriptions
+    argument0 = string (string)
+    argument1 = width (real)
+    argument2 = string to append (string)
+    argument3 = split word (boolean)
+*/
+//GMLscripts.com/license
 {
     var pos_space, pos_current, text_current, text_output, line_current;
     pos_space = -1;

@@ -37,7 +37,7 @@ global.dvc_ratio = global.dvc_width/global.dvc_height; //Defining device display
 global.btn_nav = 1; //Navigation index
 global.btn_enable = 0; //Global buttons state
 global.popup_type = 2 //If global.popup type = 2 it will show confirm message (yesno) else information message (ok)
-global.main_options = scr_string_encrypt("main_options",os_get_language())+".enc"; //Ini file name
+global.main_options = string_encrypt("main_options",os_get_language())+".enc"; //Ini file name
 //Check device reso
 if (global.dvc_width &lt; 960 &amp;&amp; global.dvc_height &lt; 540) { //Check if device reso is smaller than qHD
     global.dvc_width = 960;
@@ -72,13 +72,13 @@ else if (global.dvc_width &gt;= 2560 &amp;&amp; global.dvc_height &gt;= 1440) { 
     global.v_pwd_fnt = fnt_pwd_2_5; //Set password font based on global.scaling
 }
 display_set_gui_size(global.dvc_width,global.dvc_height); //Set GUI size based on display vars
-scr_resize_surface_app(); //Resizing display using custom script
+camera_resize_surface(); //Resizing display using custom script
 //Disable power saving if os android/ios
 if os_type == os_android || os_type == os_ios {
     os_powersave_enable(false); //Disable power saving
 }
 //Scripts initialization
-scr_sounds_load(); //Init sound names
+crobe_audio_load(); //Init sound names
 //Additional variables
 global.btn_allow = true;
 global.passport_email = "";
@@ -178,10 +178,10 @@ global.v_shd_res_y = display_get_gui_height(); //Set reso y for scanlines shader
 var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
 if ds_map_find_value(async_load,"status") == 0 { //Check if http status is 0 (success)
     if v_http_result = "Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received." { //Check result
-        scr_pop_mes(string(v_http_result),1,"","","Ok","",1); //Show result message
+        popup_message(string(v_http_result),1,"","","Ok","",1); //Show result message
     }
     else if v_http_result = "" { //Check if http result is nothing
-        scr_pop_mes("Connection timed out.",1,"","","Retry","",1); //Show message
+        popup_message("Connection timed out.",1,"","","Retry","",1); //Show message
     }
     else {
         
@@ -190,7 +190,7 @@ if ds_map_find_value(async_load,"status") == 0 { //Check if http status is 0 (su
 else { //Handle error for all http event
     if instance_exists(objPop_auth) { //Check instance is exists
         if ds_map_find_value(async_load,"id") = objPop_auth.v_http_id { //Check http id
-            scr_pop_mes("Unfortunately, the server is not responding.",1,"","","Close","",0); //Show message
+            popup_message("Unfortunately, the server is not responding.",1,"","","Close","",0); //Show message
         }
     }
 }

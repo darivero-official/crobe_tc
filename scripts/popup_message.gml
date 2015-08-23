@@ -1,6 +1,6 @@
-///scr_pop_mes(text,type,btn1_function,btn2_function,btn1_text,btn2_text,priority)
+///popup_message(text,type,btn1_function,btn2_function,btn1_text,btn2_text,priority)
 /*
-    Used for display popup message
+    Display message popup
     
     Descriptions
     argument0 = message content (string)

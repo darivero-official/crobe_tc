@@ -1,14 +1,14 @@
-///mail_send(recipient,sender,sender_name,subject,content)
+///passport_mail(recipient,sender,sender_name,subject,content,return_message)
 /*
-    Used for send email to users
+    Send email to passport user
     
     Descriptions
     argument0 = recipient email address (string)
     argument1 = sender email address (string)
     argument2 = sender name (string)
     argument3 = subject of email (string)
-    argument4 = content of email (text/HTML)
-    argument5 = return string (string)
+    argument4 = content of email (text/HTML) (string)
+    argument5 = return message (string)
     
 */
 var temp_str; //Init temporary string var

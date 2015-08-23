@@ -1,6 +1,12 @@
 ///ds_map_add_replace(id,key,value,user)
 /*
     Used for add and/or replace item in the ds map
+    
+    Descriptions
+    argument0 = id (variable)
+    argument1 = key (string)
+    argument2 = value (string)
+    argument3 = user data structure (boolean)
 */
 var temp_val; //Create temporary variable
 if ds_map_exists(argument0,argument1) { //Check if key is exists in the ds map

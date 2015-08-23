@@ -1,7 +1,6 @@
-///scr_keyboard_mapping()
+///keyboard_mapping()
 /*
-    This script was edited by Damar
-    Used for mapping the virtual keyboark
+    Mapping the virtual keyboard
 */
 //Section 1
 keymap[0,0] = 'q';

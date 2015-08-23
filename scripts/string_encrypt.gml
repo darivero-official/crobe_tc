@@ -1,11 +1,12 @@
-///scr_string_encrypt(string, password)
+///string_encrypt(string,password)
 /*
     Encrypt a string with a password
     
     Descriptions
-    argument0 = string to be encrypt (string)
+    argument0 = string (string)
     argument1 = password (string)
 */
+//GMLscripts.com/license
 var result, password, str_length, password_length, str_position, password_position, str_char, password_char;
 
 result = argument[0];
@@ -36,4 +37,4 @@ for (str_position = 1; str_position <= str_length; str_position += 1) {
 
 }
 
-return result;
+return result; //Return a given string
