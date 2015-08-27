@@ -23,8 +23,8 @@ if !global.v_msg_type = 0 { //Check if not notification message
 global.v_msg_important = argument6; //Set message important
 if instance_exists(objPop_mes) { //Check if objPop_mes is not exists
     objPop_mes.v_enabled = false;
-    instance_create(display_get_gui_width()/2,display_get_gui_height()/2,objPop_mes); //Display message
+    instance_create(global.dvc_width/2,global.dvc_height/2,objPop_mes); //Display message
 }
 else {
-    instance_create(display_get_gui_width()/2,display_get_gui_height()/2,objPop_mes); //Display message
+    instance_create(global.dvc_width/2,global.dvc_height/2,objPop_mes); //Display message
 }

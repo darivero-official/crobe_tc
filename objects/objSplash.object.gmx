@@ -88,6 +88,7 @@ if os_is_network_connected() = true { //Check if device is connected to internet
     img_splash = 0; //Set splash image
     img_splash_url = 0; //Set splash img url
     v_http_id_spl = crobe_get_splash("1","tc_imgurl"); //Import splash screen
+    v_http_id_spl_txt = noone; //Set splash screen text
     background_alpha[0] = 0; //Set background alpha
 }
 else {
@@ -361,12 +362,25 @@ if v_image_turn = 4 { //Check if image turn is 4
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
+            <string>///Connecting to server
+var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
 if ds_map_find_value(async_load,"id") == v_http_id_spl { //Check http id
+    if string_length(v_http_result) &gt; 5 { //Check if result length is bigger than 5
         if string_count("http://",v_http_result) &gt;= 1 { //Check if found http:// text from result
             img_splash_url = v_http_result; //Set splash img url to http result
             img_splash = background_add(v_http_result,1,0); //Set splash background
         }
+    }
+}
+if ds_map_find_value(async_load,"id") == v_http_id_spl_txt { //Check http id
+    if ds_map_find_value(async_load,"status") == 0 { //Check if status is 0 (success)
+        if string_count("No",v_http_result) &gt;= 1 { //Check if found No text from result
+            popup_notification(v_http_result,true,6); //Show error notification popup
+        }
+        else {
+            popup_notification(v_http_result,false,6); //Show information notification popup
+        }
+    }
 }
 </string>
           </argument>
@@ -390,10 +404,12 @@ if ds_map_find_value(async_load,"id") == v_http_id_spl { //Check http id
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var v_http_result = ds_map_find_value(async_load,"filename"); //Set temporary variable of http result
+            <string>///If splash image is loaded
+var v_http_result = ds_map_find_value(async_load,"filename"); //Set temporary variable of http result
 if ds_map_find_value(async_load,"id") == img_splash { //Check http id
     if string_count("http://",v_http_result) &gt;= 1 { //Check if found http:// text from result
-        //Write action here
+        popup_notification("Splash screen loaded!",false,4); //Show info notification popup
+        v_http_id_spl_txt = crobe_get_splash("1","tc_title"); //Import splash title
     }
 }
 </string>

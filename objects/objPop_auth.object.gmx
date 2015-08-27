@@ -374,6 +374,7 @@ if ds_map_find_value(async_load,"id") == v_http_id { //Check http id
             global.passport_email = v_msg_input_2txt; //Set passport email to input 2 text
             global.dp_uname = ds_map_add_replace(global.v_ds_map_user,"dp_uname",v_msg_input_1txt,true); //Replace user name
             global.dp_pass = ds_map_add_replace(global.v_ds_map_user,"dp_pass",v_msg_input_4txt,true); //Replace user password
+            popup_notification("Login details saved.",false,4); //Show info notification popup
             if global.user_first_time = 1 { //Check if user first time is not 0
                 global.user_first_time = ds_map_add_replace(global.v_ds_map_user,"first_time",false,true); //Replace user first time usage to false
             }
@@ -384,6 +385,7 @@ if ds_map_find_value(async_load,"id") == v_http_id { //Check http id
             global.passport_email = v_msg_input_2txt; //Set passport email to input 2 text
             global.dp_uname = ds_map_add_replace(global.v_ds_map_user,"dp_uname",v_msg_input_1txt,true); //Replace user name
             global.dp_pass = ds_map_add_replace(global.v_ds_map_user,"dp_pass",v_msg_input_2txt,true); //Replace user password
+            popup_notification("Login details saved.",false,4); //Show info notification popup
             if global.user_first_time = 1 { //Check if user first time is not 0
                 global.user_first_time = ds_map_add_replace(global.v_ds_map_user,"first_time",false,true); //Replace user first time usage to false
             }

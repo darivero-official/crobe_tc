@@ -7,7 +7,7 @@
 */
 global.v_msg_auth_type = argument0; //Set auth type
 if !instance_exists(objPop_auth) { //Check if objPop_auth is not exists
-    instance_create(display_get_width()/2,display_get_height()/2,objPop_auth); //Display popup
+    instance_create(global.dvc_width/2,global.dvc_width/2,objPop_auth); //Display popup
 }
 else {
     //objPop_auth.v_msg_type = argument0;

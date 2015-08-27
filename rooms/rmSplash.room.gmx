@@ -2,7 +2,7 @@
 <room>
   <caption></caption>
   <width>384</width>
-  <height>216</height>
+  <height>212</height>
   <vsnap>32</vsnap>
   <hsnap>32</hsnap>
   <isometric>0</isometric>
@@ -20,7 +20,7 @@
 instance_create(0,0,objCamera_global); //Create a global camera object
 //THIS ROOM ONLY
 instance_create(view_xport+(view_wport/2),view_yport+(view_hport/2),objSplash); //Create splash object
-popup_auth_display(0)
+//popup_auth_display(0)
 //mail_content["Email Verification"] = "Here is your verification email! &lt;b&gt;COEG123321&lt;/b&gt;"; //Set email content temporary variable
 //passport_mail("the.last.walla@gmail.com","cs@passport.darivero.ml","Darivero","[Passport] Email Verification",mail_content["Email Verification"],"Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received."); //Display register popup</code>
   <enableViews>0</enableViews>

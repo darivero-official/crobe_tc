@@ -103,7 +103,8 @@ if global.v_msg_type = 1 &amp;&amp; v_btn_1_state = "released" { //Check if info
             game_end(); //Exit the game
         break;
         case "passport_verification": //Email verification
-            v_http_id = passport_mail(global.passport_email,"cs@passport.darivero.ml","Darivero","[Passport] Email Verification",mail_content["Email Verification"],"Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received."); //Send verification email
+            v_http_id = passport_mail(global.passport_email,"cs@passport.darivero.xyz","Darivero","[Passport] Email Verification",mail_content["Email Verification"],"Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received."); //Send verification email
+            popup_notification("Email sent! Please wait a few minutes.",false,8); //Show info notification popup
         break;
         case "passport_read_data": //Read data from server
             passport_parse_user_data(); //Read user's data
@@ -288,8 +289,7 @@ else {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>xx = instance_number(objPop_mes)
-///Controlling object
+            <string>///Controlling object
 //Controlling popup
 if v_enabled = true { //Check if message is enabled
     global.btn_allow = false; //Don't allow any buttons to be active

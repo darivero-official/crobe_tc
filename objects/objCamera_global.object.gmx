@@ -40,8 +40,8 @@ global.popup_type = 2 //If global.popup type = 2 it will show confirm message (y
 global.main_options = string_encrypt("main_options",os_get_language())+".enc"; //Ini file name
 //Check device reso
 if (global.dvc_width &lt; 960 &amp;&amp; global.dvc_height &lt; 540) { //Check if device reso is smaller than qHD
-    global.dvc_width = 960;
-    global.dvc_height = 540;
+    //global.dvc_width = 960; //Set device width to 960
+    //global.dvc_height = 540; //Set device height to 540
     global.scaling = 1; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_1; //Set message font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_1; //Set splash copyright font based on global.scaling
@@ -74,11 +74,11 @@ else if (global.dvc_width &gt;= 2560 &amp;&amp; global.dvc_height &gt;= 1440) { 
 display_set_gui_size(global.dvc_width,global.dvc_height); //Set GUI size based on display vars
 camera_resize_surface(); //Resizing display using custom script
 //Disable power saving if os android/ios
-if os_type == os_android || os_type == os_ios {
+if os_type == os_android || os_type == os_ios { //Check if device os is android or ios
     os_powersave_enable(false); //Disable power saving
 }
 //Scripts initialization
-crobe_audio_load(); //Init sound names
+crobe_audio_load(); //Load sounds
 //Additional variables
 global.btn_allow = true;
 global.passport_email = "";
@@ -181,7 +181,7 @@ if ds_map_find_value(async_load,"status") == 0 { //Check if http status is 0 (su
         popup_message(string(v_http_result),1,"","","Ok","",1); //Show result message
     }
     else if v_http_result = "" { //Check if http result is nothing
-        popup_message("Connection timed out.",1,"","","Retry","",1); //Show message
+        popup_message("Connection timed out.",1,"","","Retry","",1); //Show fail message
     }
     else {
         
@@ -190,7 +190,7 @@ if ds_map_find_value(async_load,"status") == 0 { //Check if http status is 0 (su
 else { //Handle error for all http event
     if instance_exists(objPop_auth) { //Check instance is exists
         if ds_map_find_value(async_load,"id") = objPop_auth.v_http_id { //Check http id
-            popup_message("Unfortunately, the server is not responding.",1,"","","Close","",0); //Show message
+            popup_notification("Server is not responding.",true,6); //Show error notification popup
         }
     }
 }
@@ -217,32 +217,9 @@ else { //Handle error for all http event
           <argument>
             <kind>1</kind>
             <string>///Freeing memory
-//font_delete(global.v_msg_fnt);
 ds_map_destroy(global.v_ds_map_settings); //Destroy settings ds map
 ds_map_destroy(global.v_ds_map_user); //Destroy user ds map
 </string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="7" enumb="2">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string></string>
           </argument>
         </arguments>
       </action>

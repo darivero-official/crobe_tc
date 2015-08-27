@@ -44,7 +44,6 @@
         <sprite>sprites\sprSplash_loading</sprite>
       </sprites>
     </sprites>
-    <sprites name="Menu"/>
     <sprites name="Properties">
       <sprites name="Cursor">
         <sprite>sprites\sprCursor</sprite>
@@ -113,6 +112,7 @@
       <scripts name="Popup">
         <script>scripts\popup_auth_display.gml</script>
         <script>scripts\popup_message.gml</script>
+        <script>scripts\popup_notification.gml</script>
       </scripts>
     </scripts>
     <scripts name="Engine">
@@ -151,21 +151,42 @@
     </fonts>
   </fonts>
   <objects name="objects">
-    <object>objects\objCamera_global</object>
-    <object>objects\objKeyboard</object>
-    <object>objects\objNav_play</object>
-    <object>objects\objPop_auth</object>
-    <object>objects\objPop_mes</object>
-    <object>objects\objSplash</object>
-    <object>objects\objSync</object>
+    <objects name="Server">
+      <object>objects\objSync</object>
+    </objects>
+    <objects name="Splash">
+      <objects name="Logo">
+        <object>objects\objSplash</object>
+      </objects>
+    </objects>
+    <objects name="Menu">
+      <objects name="Main">
+        <object>objects\objNav_play</object>
+      </objects>
+    </objects>
+    <objects name="Properties">
+      <objects name="Camera">
+        <objects name="Global">
+          <object>objects\objCamera_global</object>
+        </objects>
+      </objects>
+      <objects name="Keyboard">
+        <object>objects\objKeyboard</object>
+      </objects>
+      <objects name="Popup">
+        <object>objects\objPop_auth</object>
+        <object>objects\objPop_mes</object>
+        <object>objects\objPop_notification</object>
+      </objects>
+    </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\rmSplash</room>
   </rooms>
   <constants number="4">
     <constant name="product_name">"Crobe"</constant>
-    <constant name="passport_server">"http://passport.darivero.ml/"</constant>
-    <constant name="server">"http://darivero.ml/"</constant>
+    <constant name="passport_server">"http://passport.darivero.xyz/"</constant>
+    <constant name="server">"http://darivero.xyz/"</constant>
     <constant name="salt">"Darivero, is a company with the largest income working in the field of software."</constant>
   </constants>
   <help>
