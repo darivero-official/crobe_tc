@@ -34,6 +34,12 @@
           <sound>sound\sndThunder4</sound>
         </sounds>
       </sounds>
+      <sounds name="Shorts">
+        <sounds name="Notification">
+          <sound>sound\sndNotif_info</sound>
+          <sound>sound\sndNotif_error</sound>
+        </sounds>
+      </sounds>
     </sounds>
   </sounds>
   <sprites name="sprites">
@@ -113,6 +119,7 @@
         <script>scripts\popup_auth_display.gml</script>
         <script>scripts\popup_message.gml</script>
         <script>scripts\popup_notification.gml</script>
+        <script>scripts\popup_loading.gml</script>
       </scripts>
     </scripts>
     <scripts name="Engine">
@@ -177,6 +184,7 @@
         <object>objects\objPop_auth</object>
         <object>objects\objPop_mes</object>
         <object>objects\objPop_notification</object>
+        <object>objects\objLoading</object>
       </objects>
     </objects>
   </objects>

@@ -4,7 +4,7 @@
 */
 //Background music
 ex_audio_load("sndBack_menu_main_earthspace",sndBack_menu_main_earthspace); //Load menu background music titled "Earth Space"
-//Effects music
+//Environment effects music
 ex_audio_load("sndThunder",sndThunder); //Load thunder sfx
 ex_audio_load("sndThunder2",sndThunder2); //Load thunder 2 sfx
 ex_audio_load("sndThunder3",sndThunder3); //Load thunder 3 sfx
@@ -15,6 +15,9 @@ ex_audio_load("sndChoose_release",sndChoose_release); //Load choose release sfx
 ex_audio_load("sndTick_close",sndTick_close); //Load tick close sfx
 ex_audio_load("sndTick_close_long",sndTick_close_long); //Load tick close long sfx
 ex_audio_load("sndTick_tiny",sndTick_tiny); //Load tick tiny sfx
+//Notification
+ex_audio_load("sndNotif_info",sndNotif_info); //Load notification info sfx
+ex_audio_load("sndNotif_error",sndNotif_error); //Load notification info sfx
 //Set classes
 ex_audio_class_create("back"); //Create class for backsounds
 ex_audio_class_add_sound("sndBack_menu_main_earthspace","back"); //Add menu backsound to class backsound

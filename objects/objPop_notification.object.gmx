@@ -38,14 +38,50 @@ v_notif_width = 0; //Set notification width
 v_notif_height = 0; //Set notification height
 v_notif_max_l = display_get_gui_width()*(5/8); //Set notification max length (in pixels)
 v_notif_l = string_length(global.v_notif); //Set notification length
-x = v_notif_padding; //Set notification x position
+x = -50; //Set notification x position to -50
 //Additional variables
 v_enabled = true; //Set notification is enabled
 v_m_p = 1*global.scaling; //Border
+v_notif_obj = instance_number(objPop_notification); //Count same object
+temp_val = 0;
 alarm[0] = v_notif_timer*room_speed;
 //Functions
-if instance_number(objPop_notification) &gt; 1 { //Check if objPop_notification instance number is bigger than 1
-    depth = depth-instance_number(objPop_notification); //Set depth
+alarm[1] = 1; //Replace
+if v_notif_type = 1 { //Check if notification type is 1 (error)
+    if global.snd_fx = true { //Check if sound effect is enabled
+        ex_audio_play("sndNotif_error",0); //Play audio sndNotif_error
+    }
+}
+else {
+    if global.snd_fx = true { //Check if sound effect is enabled
+        ex_audio_play("sndNotif_info",0); //Play audio sndNotif_info
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>y = (v_notif_height+(v_notif_padding))+random(display_get_gui_height()-(v_notif_height+(v_notif_padding))); //Set notification y position
+if v_notif_obj &gt; 1 { //Check if objPop_notification is bigger than 1
+    depth -= v_notif_obj; //Set object depth
 }
 </string>
           </argument>
@@ -120,15 +156,18 @@ v_notif_height = (string_height_ext(v_notif,v_notif_fnt_size,v_notif_max_l)/2); 
             <string>///Controlling object
 //Controlling popup
 if v_enabled = true { //Check if notification is enabled
-    y = v_notif_height+(v_notif_padding*1); //Set notification y position
+    if x &lt; 0 { //Check if x is smaller than 0
+        x += 2*global.scaling; //Increase x by 2
+    }
     if v_notif_alpha &lt; 1 { //Check if notification alpha is smaller than 1
         v_notif_alpha += 0.2; //Increase notification alpha by 0.2
     }
 }
 else {
-    y += 2*global.scaling; //Increase notification y position by 2
+    temp_val += 1;
+    x -= temp_val*global.scaling; //Increase notification y position by 2
     if v_notif_alpha &gt; 0 { //Check if notification alpha is bigger than 0
-       v_notif_alpha -= 0.1; //Decrease notification alpha by 0.2
+       v_notif_alpha -= 0.05; //Decrease notification alpha by 0.2
     }
     else if v_notif_alpha = 0 { //Check if notification alpha is 0
         instance_destroy(); //Destroy object
@@ -175,7 +214,7 @@ draw_vertex(x+v_notif_width+(v_notif_padding*2)+1,y+v_notif_height+(v_notif_padd
 draw_primitive_end();
 //Draw text
 draw_set_colour(c_gray); //Set message text shadow colour
-draw_text_ext(x+v_notif_padding-1,y-1,v_notif+string(instance_number(objPop_notification)),v_notif_fnt_size,v_notif_max_l); //Draw message text shadow
+draw_text_ext(x+v_notif_padding-1,y-1,v_notif,v_notif_fnt_size,v_notif_max_l); //Draw message text shadow
 draw_set_colour(c_white); //Set message text colour
 draw_text_ext(x+v_notif_padding,y,v_notif,v_notif_fnt_size,v_notif_max_l); //Draw message text
 draw_reset();

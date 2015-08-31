@@ -44,6 +44,7 @@ v_btn_1_state = "released"; //Set button 1 state to released
 v_m_p = 1*global.scaling; //Border
 v_focus = 1; //Set focus
 v_http_id = noone; //Set http id
+v_http_id_pass = noone; //Set http id for password
 //Controlling input
 if v_msg_type = 1 { //Check if message type is 1 (register)
     v_msg_input_1txt = "Username"; //Set input 1 text
@@ -370,6 +371,7 @@ else {
 if ds_map_find_value(async_load,"id") == v_http_id { //Check http id
     if ds_map_find_value(async_load,"status") == 0 { //Check if status is 0 (success)
         var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
+        popup_loading("v_destroy"); //Destroy loading popup
         if v_http_result = "Congratulations! You are registered!" { //Check result
             global.passport_email = v_msg_input_2txt; //Set passport email to input 2 text
             global.dp_uname = ds_map_add_replace(global.v_ds_map_user,"dp_uname",v_msg_input_1txt,true); //Replace user name
@@ -396,8 +398,11 @@ if ds_map_find_value(async_load,"id") == v_http_id { //Check http id
             popup_message("The authorization can not be accepted.",1,"","","Retry","",1); //Show result with message
         }
     }
+    else if ds_map_find_value(async_load,"status") &lt;= 0 { //Check if status is smaller than 0 (failure)
+        popup_loading("v_destroy"); //Destroy loading popup
+        popup_message("Cannot connect to server.",1,"","","Retry","",1); //Show result with message
+    }
 }
-xx = ds_map_find_value(async_load,"status");
 </string>
           </argument>
         </arguments>

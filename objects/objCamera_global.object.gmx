@@ -39,7 +39,7 @@ global.btn_enable = 0; //Global buttons state
 global.popup_type = 2 //If global.popup type = 2 it will show confirm message (yesno) else information message (ok)
 global.main_options = string_encrypt("main_options",os_get_language())+".enc"; //Ini file name
 //Check device reso
-if (global.dvc_width &lt; 960 &amp;&amp; global.dvc_height &lt; 540) { //Check if device reso is smaller than qHD
+if (global.dvc_width &lt; 960 || global.dvc_height &lt; 540) { //Check if device reso is smaller than qHD
     //global.dvc_width = 960; //Set device width to 960
     //global.dvc_height = 540; //Set device height to 540
     global.scaling = 1; //Scaling var for all sprite image
@@ -47,25 +47,25 @@ if (global.dvc_width &lt; 960 &amp;&amp; global.dvc_height &lt; 540) { //Check i
     global.v_spl_fnt_trademark = fnt_spl_cop_1; //Set splash copyright font based on global.scaling
     global.v_pwd_fnt = fnt_pwd_1; //Set password font based on global.scaling
 }
-else if ((global.dvc_width &gt;= 960 &amp;&amp; global.dvc_height &gt;= 540) &amp;&amp; (global.dvc_width &lt; 1280 &amp;&amp; global.dvc_height &lt; 720)) { //Check if device reso is same as qHD or bigger, but still smaller than HD
+else if ((global.dvc_width &gt;= 960 || global.dvc_height &gt;= 540) &amp;&amp; (global.dvc_width &lt; 1280 || global.dvc_height &lt; 720)) { //Check if device reso is same as qHD or bigger, but still smaller than HD
     global.scaling = 1; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_1; //Set font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_1; //Set splash copyright font based on global.scaling
     global.v_pwd_fnt = fnt_pwd_1; //Set password font based on global.scaling
 }
-else if ((global.dvc_width &gt;= 1280 &amp;&amp; global.dvc_height &gt;= 720) &amp;&amp; (global.dvc_width &lt; 1920 &amp;&amp; global.dvc_height &lt; 1080)) { //Check if device reso is same as HD or bigger, but still smaller than FHD
+else if ((global.dvc_width &gt;= 1280 || global.dvc_height &gt;= 720) &amp;&amp; (global.dvc_width &lt; 1920 || global.dvc_height &lt; 1080)) { //Check if device reso is same as HD or bigger, but still smaller than FHD
     global.scaling = 1.5; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_1_5; //Set font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_1_5; //Set splash copyright font based on global.scaling
     global.v_pwd_fnt = fnt_pwd_1_5; //Set password font based on global.scaling
 }
-else if ((global.dvc_width &gt;= 1920 &amp;&amp; global.dvc_height &gt;= 1080) &amp;&amp; (global.dvc_width &lt; 2560 &amp;&amp; global.dvc_height &lt; 1440)) { //Check if device reso is same as FHD or bigger, but still smaller than QHD (Quad HD)
+else if ((global.dvc_width &gt;= 1920 || global.dvc_height &gt;= 1080) &amp;&amp; (global.dvc_width &lt; 2560 || global.dvc_height &lt; 1440)) { //Check if device reso is same as FHD or bigger, but still smaller than QHD (Quad HD)
     global.scaling = 2; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_2; //Set font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_2; //Set splash copyright font based on global.scaling
     global.v_pwd_fnt = fnt_pwd_2; //Set password font based on global.scaling
 }
-else if (global.dvc_width &gt;= 2560 &amp;&amp; global.dvc_height &gt;= 1440) { //Check if device reso is bigger than QHD
+else if (global.dvc_width &gt;= 2560 || global.dvc_height &gt;= 1440) { //Check if device reso is bigger than QHD
     global.scaling = 2.5; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_2_5; //Set font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_2_5; //Set splash copyright font based on global.scaling
@@ -177,19 +177,16 @@ global.v_shd_res_y = display_get_gui_height(); //Set reso y for scanlines shader
             <string>///Connecting to server
 var v_http_result = ds_map_find_value(async_load,"result"); //Set temporary variable of http result
 if ds_map_find_value(async_load,"status") == 0 { //Check if http status is 0 (success)
-    if v_http_result = "Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received." { //Check result
-        popup_message(string(v_http_result),1,"","","Ok","",1); //Show result message
+    if string_count("email",v_http_result) &gt;= 1 { //Check result
+        popup_message(string(v_http_result),1,"passport_read_data","","Ok","",1); //Show result message
     }
-    else if v_http_result = "" { //Check if http result is nothing
-        popup_message("Connection timed out.",1,"","","Retry","",1); //Show fail message
-    }
-    else {
-        
+    if v_http_result == "" { //Check if http result is nothing
+        popup_message("Connection timed out.",2,"passport_verification","","Retry","Cancel",1); //Show fail message
     }
 }
-else { //Handle error for all http event
+else if ds_map_find_value(async_load,"status") &lt;= 0 { //Handle error for all http event
     if instance_exists(objPop_auth) { //Check instance is exists
-        if ds_map_find_value(async_load,"id") = objPop_auth.v_http_id { //Check http id
+        if ds_map_find_value(async_load,"id") == objPop_auth.v_http_id { //Check http id
             popup_notification("Server is not responding.",true,6); //Show error notification popup
         }
     }
@@ -280,6 +277,29 @@ if !draw_get_swf_aa_level() = 0 { //Check if swf anti aliasing is 0
 else {
     draw_set_swf_aa_level(1); //Set anti aliasing for swf to 1
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="32">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>popup_notification("Server is not responding.",true,6); //Show error notification popup
 </string>
           </argument>
         </arguments>

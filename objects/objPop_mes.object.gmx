@@ -104,7 +104,7 @@ if global.v_msg_type = 1 &amp;&amp; v_btn_1_state = "released" { //Check if info
         break;
         case "passport_verification": //Email verification
             v_http_id = passport_mail(global.passport_email,"cs@passport.darivero.xyz","Darivero","[Passport] Email Verification",mail_content["Email Verification"],"Verification email sent to "+global.passport_email+"! Please wait for 1-5 minutes if the email has not been received."); //Send verification email
-            popup_notification("Email sent! Please wait a few minutes.",false,8); //Show info notification popup
+            popup_notification("Sending email...",false,8); //Show info notification popup
         break;
         case "passport_read_data": //Read data from server
             passport_parse_user_data(); //Read user's data
@@ -131,6 +131,10 @@ if global.v_msg_type = 2 { //Check if confirmation message
             case "pass_reg": //Register
                 popup_auth_display(1); //Display register popup
             break;
+            
+            case "pass_log": //Login
+                popup_auth_display(0); //Display login popup
+            break;
             case "start": //Start the game
                 if instance_exists(objSplash) { //Check if objSplash is exists
                     objSplash.v_image_chance = 0; //Set image chance to 1 (give chance to turn 3 show up)
@@ -142,9 +146,6 @@ if global.v_msg_type = 2 { //Check if confirmation message
         switch(global.v_msg_btn_2) { //Switch message button 2 function
             case "exit": //Exit
                 game_end(); //Exit the game
-            break;
-            case "pass_log":
-                popup_auth_display(0); //Display login popup
             break;
         }
     }
