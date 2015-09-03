@@ -288,7 +288,7 @@ else if v_image_turn = 3 { //Check if image turn is 2 (product logo)
                     }
                 }
                 else {
-                    popup_message("You are in offline mode. You will not able to access Marketplace, Prize, Free roam, etc.",2,"start","exit","Continue","Exit",0); //Display information message
+                    popup_message("You are in offline mode. You will not able to access Marketplace, Prize, Free roam, etc.",2,"passport_read_data","exit","Continue","Exit",1.5); //Display information message
                 }
             }
         }
@@ -400,7 +400,7 @@ if ds_map_find_value(async_load,"status") == 0 { //Check if status is 0 (success
             if string_count("http://",v_http_result) &gt;= 1 { //Check if found http:// text from result
                 img_splash_url = v_http_result; //Set splash img url to http result
                 img_splash = background_add(img_splash_url,true,0); //Set splash background
-                popup_notification("Loading splash image..",false,6); //Show information notification popup
+                //popup_notification("Loading splash image..",false,6); //Show information notification popup
             }
         }
         else {
@@ -538,15 +538,15 @@ else {
 }
 if v_image_turn = 3 { //Check if image turn is 3 (product logo)
     draw_set_font(v_spl_fnt_trademark); //Set font to v_spl_fnt_trademark
-    draw_text_ext(x,display_get_gui_height()-20*global.scaling,v_spl_txt,v_spl_fnt_size,v_spl_max_l); //Draw copyright text
+    draw_text_ext(x,display_get_gui_height()-80*global.scaling,v_spl_txt,v_spl_fnt_size,v_spl_max_l); //Draw copyright text
 }
 if v_image_turn = 4 { //Check if image turn is 4
     draw_set_alpha(background_alpha[0]); //Set image alpha
     draw_set_font(global.v_msg_fnt); //Set font to v_spl_fnt_trademark
     draw_set_colour(c_gray); //Set drawing colour
-    draw_text(x-(1*global.scaling),display_get_gui_height()-100*global.scaling-(1*global.scaling),"Tap anywhere to continue"); //Draw tap anywhere text
+    draw_text(x-(4*global.scaling),display_get_gui_height()-400*global.scaling-(4*global.scaling),"Tap anywhere to continue"); //Draw tap anywhere text
     draw_set_colour(c_white); //Set drawing colour
-    draw_text(x,display_get_gui_height()-100*global.scaling,"Tap anywhere to continue"); //Draw tap anywhere text
+    draw_text(x,display_get_gui_height()-400*global.scaling,"Tap anywhere to continue"); //Draw tap anywhere text
 }
 draw_reset(); //Reset all draw
 </string>

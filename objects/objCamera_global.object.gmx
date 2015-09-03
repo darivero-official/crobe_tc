@@ -40,37 +40,34 @@ global.popup_type = 2 //If global.popup type = 2 it will show confirm message (y
 global.main_options = string_encrypt("main_options",os_get_language())+".enc"; //Ini file name
 //Check device reso
 if (global.dvc_width &lt; 960 || global.dvc_height &lt; 540) { //Check if device reso is smaller than qHD
-    //global.dvc_width = 960; //Set device width to 960
-    //global.dvc_height = 540; //Set device height to 540
-    global.scaling = 1; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_1; //Set message font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_1; //Set splash copyright font based on global.scaling
     global.v_pwd_fnt = fnt_pwd_1; //Set password font based on global.scaling
 }
 else if ((global.dvc_width &gt;= 960 || global.dvc_height &gt;= 540) &amp;&amp; (global.dvc_width &lt; 1280 || global.dvc_height &lt; 720)) { //Check if device reso is same as qHD or bigger, but still smaller than HD
-    global.scaling = 1; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_1; //Set font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_1; //Set splash copyright font based on global.scaling
     global.v_pwd_fnt = fnt_pwd_1; //Set password font based on global.scaling
 }
 else if ((global.dvc_width &gt;= 1280 || global.dvc_height &gt;= 720) &amp;&amp; (global.dvc_width &lt; 1920 || global.dvc_height &lt; 1080)) { //Check if device reso is same as HD or bigger, but still smaller than FHD
-    global.scaling = 1.5; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_1_5; //Set font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_1_5; //Set splash copyright font based on global.scaling
     global.v_pwd_fnt = fnt_pwd_1_5; //Set password font based on global.scaling
 }
 else if ((global.dvc_width &gt;= 1920 || global.dvc_height &gt;= 1080) &amp;&amp; (global.dvc_width &lt; 2560 || global.dvc_height &lt; 1440)) { //Check if device reso is same as FHD or bigger, but still smaller than QHD (Quad HD)
-    global.scaling = 2; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_2; //Set font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_2; //Set splash copyright font based on global.scaling
     global.v_pwd_fnt = fnt_pwd_2; //Set password font based on global.scaling
 }
 else if (global.dvc_width &gt;= 2560 || global.dvc_height &gt;= 1440) { //Check if device reso is bigger than QHD
-    global.scaling = 2.5; //Scaling var for all sprite image
     global.v_msg_fnt = fnt_mes_2_5; //Set font based on global.scaling
     global.v_spl_fnt_trademark = fnt_spl_cop_2_5; //Set splash copyright font based on global.scaling
     global.v_pwd_fnt = fnt_pwd_2_5; //Set password font based on global.scaling
 }
+global.scaling = global.dvc_width/3840;
+//global.v_msg_fnt = font_add("babyblue.ttf",120*global.scaling,0,0,32,128);
+//global.v_pwd_fnt = font_add("arial.ttf",120*global.scaling,0,0,32,128);
+//global.v_spl_fnt_trademark = font_add("babyblue.ttf",48*global.scaling,0,0,32,128);
 display_set_gui_size(global.dvc_width,global.dvc_height); //Set GUI size based on display vars
 camera_resize_surface(); //Resizing display using custom script
 //Disable power saving if os android/ios
@@ -127,7 +124,6 @@ global.dp_role = ds_map_find_value(global.v_ds_map_user,"dp_role"); //Find user 
 global.dp_ucredits = ds_map_find_value(global.v_ds_map_user,"dp_ucredits"); //Find user credits
 global.dp_uscredits = ds_map_find_value(global.v_ds_map_user,"dp_uscredits"); //Find user special credits
 global.dp_ldate = ds_map_find_value(global.v_ds_map_user,"dp_ldate"); //Find user last login date
-cursor_sprite = sprCursor; //Set cursor
 //THIS OBJECT SHOULD BE CREATED AT ALL ROOMS WITHOUT EXCEPTIONS! (Damar)
 </string>
           </argument>
@@ -238,7 +234,7 @@ ds_map_destroy(global.v_ds_map_user); //Destroy user ds map
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
+            <string>draw_text(10,10,string(fps))
 /**//*draw_text(100,100,string(global.dp_uid));
 draw_text(100,100+20,global.dp_email);
 draw_text(100,100+40,string(global.dp_uname)+"|||"+string(global.user_first_time));

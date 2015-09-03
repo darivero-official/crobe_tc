@@ -26,39 +26,41 @@
           <argument>
             <kind>1</kind>
             <string>///Defining varibles
+image_xscale = global.scaling; //Set image x scale
+image_yscale = global.scaling; //Set image y scale
 v_msg_fnt = global.v_msg_fnt; //Set font
 v_msg_type = global.v_msg_auth_type; //Set message type (0 = login, 1 = register)
 v_msg_alpha = 0; //Set message alpha
 v_msg_width = 0; //Set message width
 v_msg_height = 0; //Set message height
 v_msg_max_l = display_get_gui_width()*(5/8); //Set message max length (in pixels)
-v_msg_padding = 20*global.scaling; //Set message padding
+v_msg_padding = 80*global.scaling; //Set message padding
 v_msg_fnt_size = font_get_size(v_msg_fnt)+(font_get_size(v_msg_fnt)/2); //Get font size from v_msg_fnt
-v_msg_btn_h = 36*global.scaling; //Set message buttons height
+v_msg_btn_h = 144*global.scaling; //Set message buttons height
 v_msg_input_w = v_msg_width//-v_msg_padding //Set message input width
 v_msg_input_h = v_msg_fnt_size+(v_msg_padding/2); //Set message input height
 v_msg_input_sel = 0; //Set input selected to 0
 //Additional variables
 v_enabled = true; //Set message is enabled
 v_btn_1_state = "released"; //Set button 1 state to released
-v_m_p = 1*global.scaling; //Border
+v_m_p = 4*global.scaling; //Border
 v_focus = 1; //Set focus
 v_http_id = noone; //Set http id
 v_http_id_pass = noone; //Set http id for password
 //Controlling input
+v_col_black1 = 0; //Set black 1 colour
+v_col_black2 = 0; //Set black 2 colour
+v_col_black3 = 0; //Set black 3 colour
+v_col_black4 = 0; //Set black 4 colour
 if v_msg_type = 1 { //Check if message type is 1 (register)
     v_msg_input_1txt = "Username"; //Set input 1 text
     v_msg_input_1txt_alpha = 0.2; //Set input 1 text alpha to 0.2
-    v_col_black1 = 0; //Set black 1 colour
     v_msg_input_2txt = "Email address"; //Set input 2 text
     v_msg_input_2txt_alpha = 0.2; //Set input 2 text alpha to 0.2
-    v_col_black2 = 0; //Set black 2 colour
     v_msg_input_3txt = "Password"; //Set input 3 text
     v_msg_input_3txt_alpha = 0.2; //Set input 3 text alpha to 0.2
-    v_col_black3 = 0; //Set black 3 colour
     v_msg_input_4txt = "Repeat password"; //Set input 4 text
     v_msg_input_4txt_alpha = 0.2; //Set input 4 text alpha to 0.2
-    v_col_black4 = 0; //Set black 4 colour
     v_msg_btn_1txt = "Register"; //Set button 1 text
 }
 else {
@@ -69,7 +71,6 @@ else {
         v_msg_input_1txt = global.dp_uname; //Set input 1 text
     }
     v_msg_input_1txt_alpha = 0.2; //Set input 1 text alpha to 0.2
-    v_col_black1 = 0; //Set black 1 colour
     if global.dp_pass = "undefined" { //Check if dp_pass is undefined
         v_msg_input_2txt = "Password"; //Set input 2 text
     }
@@ -77,7 +78,6 @@ else {
         v_msg_input_2txt = global.dp_pass; //Set input 2 text
     }
     v_msg_input_2txt_alpha = 0.2; //Set input 2 text alpha to 0.2
-    v_col_black2 = 0; //Set black 2 colour
     v_msg_btn_1txt = "Login"; //Set button 1 text
 }
 keyboard = -1; //Init keyboard
@@ -297,7 +297,7 @@ else {
           <argument>
             <kind>1</kind>
             <string>///Update variables from create event (especially for sizes)
-v_msg_width = (400/2)*global.scaling; //Set message width
+v_msg_width = (1600/2)*global.scaling; //Set message width
 if v_msg_type = 1 { //Check if message type is 1 (register)
     v_msg_height = (((v_msg_input_h+(v_msg_padding/2))*3)+v_msg_input_h)/2; //Set message height
 }
@@ -336,7 +336,7 @@ if v_enabled = true { //Check if message is enabled
     }
 }
 else {
-    y += 5*global.scaling;
+    y += 20*global.scaling;
     if v_msg_alpha &gt; 0 { //Check if message alpha is bigger than 0
         v_msg_alpha -= 0.1; //Decrease message alpha by 0.2
     }
@@ -491,12 +491,25 @@ else {
         draw_set_font(v_msg_fnt); //Set message font
     }
 }
+//Draw toggle button
+draw_set_colour(make_colour_rgb(0,190,0)); //Set back rectangle colour
+draw_rectangle(x+v_msg_width+v_msg_padding+v_m_p+1,y-v_msg_height-v_msg_padding-v_m_p,x+v_msg_width+v_msg_padding+v_m_p+1+(192*global.scaling)+v_m_p,y-v_msg_height-v_msg_padding-v_m_p+(192*global.scaling)+v_m_p,0); //Draw back rectangle
+if v_msg_type = 0 { //Check if message type is 0 (login)
+    draw_sprite_ext(sprBtn_signup,1,x+v_msg_width+v_msg_padding+v_m_p+1+(192*global.scaling)+v_m_p-((192*global.scaling)/2),y-v_msg_height-v_msg_padding-v_m_p+(192*global.scaling)+v_m_p-((192*global.scaling)/2),image_xscale,image_yscale,image_angle,image_blend,v_msg_alpha);
+}
+else {
+    draw_sprite_ext(sprBtn_signin,1,x+v_msg_width+v_msg_padding+v_m_p+1+(192*global.scaling)+v_m_p-((192*global.scaling)/2),y-v_msg_height-v_msg_padding-v_m_p+(192*global.scaling)+v_m_p-((192*global.scaling)/2),image_xscale,image_yscale,image_angle,image_blend,v_msg_alpha);
+}
+//Draw forgot password button
+draw_set_colour(make_colour_rgb(0,190,0)); //Set back rectangle colour
+draw_rectangle(x+v_msg_width+v_msg_padding+v_m_p+1,y-v_msg_height-v_msg_padding-v_m_p+(192*global.scaling)+v_m_p+1,x+v_msg_width+v_msg_padding+v_m_p+1+(192*global.scaling)+v_m_p,y-v_msg_height-v_msg_padding-v_m_p+(((192*global.scaling)+v_m_p)*2)+1,0); //Draw back rectangle
+draw_sprite_ext(sprBtn_lock,1,x+v_msg_width+v_msg_padding+v_m_p+1+(192*global.scaling)+v_m_p-((192*global.scaling)/2),y-v_msg_height-v_msg_padding-v_m_p+(((192*global.scaling)+v_m_p)*2)+1-((192*global.scaling)/2),image_xscale,image_yscale,image_angle,image_blend,v_msg_alpha);
+//Draw text
 draw_set_halign(fa_center); //Set horizontal align text to center
 draw_set_colour(c_gray); //Set button 1 text shadow colour
 draw_text_ext(x-1,y+v_msg_height+v_msg_padding+(v_msg_btn_h/2)-1,v_msg_btn_1txt,v_msg_fnt_size,v_msg_max_l); //Draw button 1 text shadow
 draw_set_colour(c_white); //Set button 1 text colour
 draw_text_ext(x,y+v_msg_height+v_msg_padding+(v_msg_btn_h/2),v_msg_btn_1txt,v_msg_fnt_size,v_msg_max_l); //Draw button 1 text
-//draw_text(1000,10,string(v_msg_input_sel));
 </string>
           </argument>
         </arguments>

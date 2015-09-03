@@ -26,9 +26,21 @@
           <argument>
             <kind>1</kind>
             <string>///Defining variables
-v_dp_uname = global.dp_uname;
-v_dp_pass = string_encrypt(global.dp_pass,salt);
-v_http_id_uid = passport_signin(v_dp_uname,v_dp_pass,"dp_uid"); //Read user id
+v_dp_uname = global.dp_uname; //Set username
+v_dp_pass = string_encrypt(global.dp_pass,salt); //Set password
+if os_is_network_connected() = true { //Check if connected to internet
+    v_http_id_uid = passport_signin(v_dp_uname,v_dp_pass,"dp_uid"); //Read user id
+    v_txt_details = "Retrieving user id..."; //Set text details
+    v_alarm = -1; //Set alarm timer to -1 (disabled)
+}
+else {
+    v_http_id_uid = noone; //Set user id
+    v_txt_details = "Loading..."; //Set text details
+    v_alarm = 100; //Set alarm timer to 30
+    if instance_exists(objSplash) { //Check if objSplash is exists\
+        objSplash.v_image_chance = 0; //Set image chance to 1 (give chance to turn 2 show up)
+    }
+}
 v_http_id_email = noone; //Set user email address
 v_http_id_uname = noone; //Set user name
 v_http_id_pass = noone; //Set user password
@@ -37,9 +49,7 @@ v_http_id_role = noone; //Set user role
 v_http_id_ucredits = noone; //Set user credits
 v_http_id_uscredits = noone; //Set user special credits
 v_http_id_ldate = noone; //Set user last login
-v_txt_details = "Retrieving user id..."; //Set text details
 v_process = 0; //Set process position
-v_alarm = -1; //Set alarm timer to -1 (disabled)
 popup_loading(v_txt_details); //Show loading popup
 </string>
           </argument>
@@ -73,7 +83,15 @@ if v_process = 7 { //If process is 7 (completed)
 }
 else {
     popup_loading("v_destroy"); //Destroy loading text
-    popup_message("Failed to parse data from passport.",2,"pass_log","","Login","Cancel",1); //Show message
+    if os_is_network_connected() = true { //Check if connected to internet
+        popup_message("Failed to parse data from passport.",2,"pass_log","","Login","Cancel",1); //Show message
+    }
+    else {
+        if instance_exists(objSplash) { //Check if objSplash is exists
+            objSplash.v_image_turn = 4; //Set image turn to 4
+            objSplash.v_image_chance = 1; //Set image chance to 1 (give chance to turn 2 show up)
+        }
+    }
 }
 </string>
           </argument>

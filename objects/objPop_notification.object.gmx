@@ -32,8 +32,8 @@ v_notif_fnt = global.v_msg_fnt; //Set font
 v_notif_type = global.v_notif_type; //Set notification type
 v_notif_timer = global.v_notif_timer; //Set notification timer
 v_notif_alpha = 0; //Set notification popup alpha to 0
-v_notif_padding = 20*global.scaling; //Set notification padding
-v_notif_fnt_size = font_get_size(v_notif_fnt)+(font_get_size(v_notif_fnt)/2); //Get font size from v_notif_fnt
+v_notif_padding = 80*global.scaling; //Set notification padding
+v_notif_fnt_size = dfont_get_size(v_notif_fnt); //Get font size from v_notif_fnt
 v_notif_width = 0; //Set notification width
 v_notif_height = 0; //Set notification height
 v_notif_max_l = display_get_gui_width()*(5/8); //Set notification max length (in pixels)
@@ -41,7 +41,7 @@ v_notif_l = string_length(global.v_notif); //Set notification length
 x = -50; //Set notification x position to -50
 //Additional variables
 v_enabled = true; //Set notification is enabled
-v_m_p = 1*global.scaling; //Border
+v_m_p = 4*global.scaling; //Border
 v_notif_obj = instance_number(objPop_notification); //Count same object
 temp_val = 0;
 alarm[0] = v_notif_timer*room_speed;
@@ -79,7 +79,8 @@ else {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>y = (v_notif_height+(v_notif_padding))+random(display_get_gui_height()-(v_notif_height+(v_notif_padding))); //Set notification y position
+            <string>///Setting depth
+y = (v_notif_height+(v_notif_padding))+random(display_get_gui_height()-(v_notif_height+(v_notif_padding))); //Set notification y position
 if v_notif_obj &gt; 1 { //Check if objPop_notification is bigger than 1
     depth -= v_notif_obj; //Set object depth
 }

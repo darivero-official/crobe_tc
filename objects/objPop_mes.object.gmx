@@ -31,21 +31,21 @@ xx = 0;
 v_msg_fnt = global.v_msg_fnt; //Set font
 v_msg_important = global.v_msg_important;//Set message important
 v_msg_alpha = 0; //Set message popup alpha to 0
-v_msg_padding = 20*global.scaling; //Set message padding
-v_msg_fnt_size = font_get_size(v_msg_fnt)+(font_get_size(v_msg_fnt)/2); //Get font size from v_msg_fnt
+v_msg_padding = 80*global.scaling; //Set message padding
+v_msg_fnt_size = dfont_get_size(v_msg_fnt); //Get font size from v_msg_fnt
 v_msg_width = 0; //Set message width
 v_msg_height = 0; //Set message height
 v_msg_max_l = display_get_gui_width()*(5/8); //Set message max length (in pixels)
 v_msg_l = string_length(global.v_msg); //Set message length
 if !global.v_msg_type = 0 { //Check if not notification message
-    v_msg_btn_h = 36*global.scaling; //Set message buttons height
+    v_msg_btn_h = 0; //Set message buttons height
 }
 else {
     v_msg_btn_h = 0; //No button
 }
 //Additional variables
 v_enabled = true; //Set message is enabled
-v_m_p = 1*global.scaling; //Border
+v_m_p = 4*global.scaling; //Border
 v_msg_letter_time = 0; //Set type write time to 0
 v_msg_letter_spd = 1; //Set type write speed to 1
 v_msg_letter_print = ""; //Set type write print to ""
@@ -131,14 +131,11 @@ if global.v_msg_type = 2 { //Check if confirmation message
             case "pass_reg": //Register
                 popup_auth_display(1); //Display register popup
             break;
-            
             case "pass_log": //Login
                 popup_auth_display(0); //Display login popup
             break;
-            case "start": //Start the game
-                if instance_exists(objSplash) { //Check if objSplash is exists
-                    objSplash.v_image_chance = 0; //Set image chance to 1 (give chance to turn 3 show up)
-                }
+            case "passport_read_data": //Read data from server
+                passport_parse_user_data(); //Read user's data
             break;
         }
     }
@@ -146,6 +143,9 @@ if global.v_msg_type = 2 { //Check if confirmation message
         switch(global.v_msg_btn_2) { //Switch message button 2 function
             case "exit": //Exit
                 game_end(); //Exit the game
+            break;
+            case "pass_log": //Login
+                popup_auth_display(0); //Display login popup
             break;
         }
     }
@@ -263,7 +263,7 @@ if keyboard_check_released(vk_backspace) { //Check if user release back key
 v_msg_width = (string_width_ext(global.v_msg,v_msg_fnt_size,v_msg_max_l)/2); //Set message width
 v_msg_height = (string_height_ext(global.v_msg,v_msg_fnt_size,v_msg_max_l)/2); //Set message height
 if !global.v_msg_type = 0 { //Check if notification message
-    v_msg_btn_h = 40*global.scaling; //Set message buttons height
+    v_msg_btn_h = 160*global.scaling; //Set message buttons height
 }
 else {
     v_msg_btn_h = 0; //No button
@@ -348,7 +348,7 @@ if v_msg_important = 1 || v_msg_important = 1.5 { //Check if message is importan
     shader_set(shdBlur); //Load blur shader
     draw_surface_ext(surf_shd_bc,view_xview[0],view_yview[0],surf_shd_bc_xscale,surf_shd_bc_yscale,surf_shd_bc_angle,surf_shd_bc_blend,surf_shd_bc_alpha); //Draw and place shader
     shader_reset();
-}
+}draw_text(100,100,string(v_msg_fnt_size));
 //Draw properties
 draw_set_align("center"); //Set drawing alignment to center
 draw_set_font(v_msg_fnt); //Set message font

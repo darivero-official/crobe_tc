@@ -234,7 +234,7 @@ if v_shd_blur_enable = 1 { //Check if blur shader is enabled
 //Logo creation
 draw_set_alpha(image_alpha); //Set image alpha
 draw_text(x,y,v_loading_txt); //Draw loading text
-draw_sprite_ext(sprSplash_loading,image_index,x-(string_width_ext(v_loading_txt,v_msg_fnt_size,display_get_gui_width())/2)-(((290*image_xscale*global.scaling))/1.5),y,image_xscale,image_yscale,image_angle,c_white,image_alpha); //Draw loading image
+draw_sprite_ext(sprSplash_loading,image_index,x-(string_width_ext(v_loading_txt,v_msg_fnt_size,display_get_gui_width())/2)-(((1160*image_xscale))/1.5),y,image_xscale,image_yscale,image_angle,c_white,image_alpha); //Draw loading image
 draw_reset(); //Resetting all drawing
 </string>
           </argument>
